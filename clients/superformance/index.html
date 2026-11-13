@@ -161,9 +161,9 @@ dialog.where{border:0;padding:0;margin:0;position:fixed;inset:0;width:auto;heigh
   mask:var(--texlang) 0 0/1600px 832px repeat,radial-gradient(90% 80% at 50% 35%,#000 30%,rgba(0,0,0,.35) 100%);mask-composite:intersect}
 /* every full-screen modal: this backdrop + .where-tex + .where-in + .where-x. Vary the backdrop with a modifier class. */
 dialog.where::backdrop{background:radial-gradient(80% 60% at 50% 30%,#141e5a,#05081c)}
-.where-in{position:relative;max-width:1100px;height:100%;margin:0 auto;padding:0 var(--pad);display:flex;flex-direction:column}
+.where-in{position:relative;max-width:1440px;height:100%;margin:0 auto;padding:0 var(--pad);display:flex;flex-direction:column}
 /* the close sits on the content's right edge; each modal says how wide its content is (--cw) */
-.where-x{position:fixed;z-index:2;top:18px;right:calc(max(0px,(100% - var(--cw,1100px)) / 2) + var(--pad) + var(--sbw,0px));width:68px;height:68px;border:0;border-radius:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:grid;place-items:center}
+.where-x{position:fixed;z-index:2;top:18px;right:calc(max(0px,(100% - var(--cw,1440px)) / 2) + var(--pad) + var(--sbw,0px));width:68px;height:68px;border:0;border-radius:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:grid;place-items:center}
 .where-x .ico{width:32px;height:32px}
 @media (max-width:760px){.where-x{top:16px;right:calc(var(--pad) + var(--sbw,0px));width:48px;height:48px}.where-x .ico{width:24px;height:24px}}
 .where-x:hover{background:rgba(255,255,255,.2)}
@@ -366,7 +366,7 @@ dialog.where::backdrop{background:radial-gradient(80% 60% at 50% 30%,#141e5a,#05
 .fvd .fv-lh{background:var(--space)}
 .fvd .where-x{z-index:4;right:calc(max(var(--sbw,0px),(100% + var(--sbw,0px) - var(--cw)) / 2) + var(--pad))} /* here the column centres inside the scroller, after its scrollbar */
 .fvd{--cw:1440px}
-.pdp{--cw:1240px}
+.pdp{--cw:1440px} /* the same width as the lists */
 .fv-list[hidden]{display:none}
 .fv-lh{position:sticky;top:0;z-index:5;background:var(--space);padding:20px 22px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
 /* full-width search under the title row; the title row leaves room for the close and centres on it */
@@ -464,7 +464,7 @@ dialog.where::backdrop{background:radial-gradient(80% 60% at 50% 30%,#141e5a,#05
 .pdp-ids .need{font-size:14.5px}
 /* the options, full-screen; what we need is lit and stays lit */
 .optdlg .where-in{overflow:auto;padding-top:28px;padding-bottom:60px}
-.optd{padding-right:90px}
+.optd{padding-right:0}
 .optd h4{margin:16px 0 6px;font:400 36px/1.15 var(--body)}
 .optd-why{margin:0 0 24px;color:#c9cde6;font-size:16px}
 .optd .vopts-body{padding:24px 28px 26px}
@@ -473,7 +473,7 @@ dialog.where::backdrop{background:radial-gradient(80% 60% at 50% 30%,#141e5a,#05
 .optd-act{display:flex;justify-content:flex-end;margin-top:24px}
 .optsave{height:56px;padding:0 40px;border:0;border-radius:8px;background:var(--sf-hi);color:#fff;font:600 17px var(--body);cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 8px 16px -8px rgba(120,20,0,.7);transition:background .15s}
 .optsave:hover{background:#ff6a45}
-@media (max-width:600px){.optd{padding-right:70px}.optd h4{font-size:28px}.optd .vopts-body{padding:18px 16px}}
+@media (max-width:600px){.optd{padding-right:0}.optd h4{font-size:28px}.optd .vopts-body{padding:18px 16px}}
 .vlearn{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#9ff0b9}
 .vlearn button{border:0;background:none;padding:0;color:var(--sf-hi);font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .plus{position:absolute;right:12px;bottom:12px;z-index:1;width:46px;height:46px;border:0;border-radius:8px;background:var(--sf-hi);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 8px 16px -8px rgba(120,20,0,.7);transition:background .15s}
@@ -728,7 +728,7 @@ section[id]{scroll-margin-top:110px}
 .drawer .scrim{background:radial-gradient(80% 60% at 50% 30%,#141e5a,#05081c)}
 .drawer .where-tex{opacity:0;transition:opacity .25s}
 .drawer.open .where-tex{opacity:1}
-.drawer .panel,.drawer.left .panel{left:0;right:0;width:auto;max-width:1100px;margin:0 auto;padding:0 var(--pad);background:transparent;color:#fff;box-shadow:none;transform:translateY(14px);opacity:0;transition:opacity .25s,transform .3s cubic-bezier(.2,.7,.2,1)}
+.drawer .panel,.drawer.left .panel{left:0;right:0;width:auto;max-width:1440px;margin:0 auto;padding:0 var(--pad);background:transparent;color:#fff;box-shadow:none;transform:translateY(14px);opacity:0;transition:opacity .25s,transform .3s cubic-bezier(.2,.7,.2,1)}
 .drawer.open .panel{transform:none;opacity:1}
 .drawer .wm{flex:none;width:84px;height:auto;margin:13px auto 28px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.55))}
 @media (max-width:760px){.drawer .wm{width:56px;margin:14px auto 22px}}
@@ -738,7 +738,7 @@ section[id]{scroll-margin-top:110px}
 .menu-groups{padding:0 0 40px}
 /* menu: the panel spans the screen so its scrollbar sits at the edge; the content keeps the 1100 column */
 #menu .panel,#basket .panel{max-width:none;padding:0}
-#basket header,#basket .bwrap,#menu .menu-groups,.mcart header,.mcart .bwrap{padding-left:calc(max(0px,(100% - 1100px) / 2) + var(--pad));padding-right:calc(max(0px,(100% - 1100px) / 2) + var(--pad))}
+#basket header,#basket .bwrap,#menu .menu-groups,.mcart header,.mcart .bwrap{padding-left:calc(max(0px,(100% - 1440px) / 2) + var(--pad));padding-right:calc(max(0px,(100% - 1440px) / 2) + var(--pad))}
 .menu-groups .pagelinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
 .menu-groups .pagelinks button{display:block;width:100%;text-align:left;border:0;background:none;color:#fff;font:400 24px var(--body);padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
 .menu-groups .pagelinks button:hover{color:var(--sf-hi)}
@@ -787,7 +787,7 @@ section[id]{scroll-margin-top:110px}
 @media (max-width:900px){#basket .bwrap{grid-template-columns:1fr;gap:20px}#basket .btotal{position:static}}
 /* one column, no sidebar: the header, then the totals brick full width, then the parts */
 #basket .bwrap,.mcart .bwrap{display:flex;flex-direction:column;gap:28px}
-#basket .btotal,.mcart .btotal{order:-1;position:static;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 40px;align-items:start}
+#basket .btotal,.mcart .btotal{order:-1;position:static;align-self:stretch;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 40px;align-items:start}
 #basket .bsum,#basket .bpay,.mcart .bsum,.mcart .bpay{display:grid;gap:10px;align-content:start}
 #basket #bitems,.mcart .bitems{display:flex;flex-direction:column;gap:28px}
 #basket #bitems > .ship,.mcart .bitems > .ship{order:-1;margin:0} /* totals, then delivery, then the parts */
@@ -800,7 +800,7 @@ section[id]{scroll-margin-top:110px}
 @media (max-width:760px){#basket .btotal{grid-template-columns:1fr}#basket .wallets{grid-template-columns:1fr}}
 
 /* the product page: over whatever opened it, the night sky behind */
-.pdp .where-in{max-width:1240px;overflow:auto;padding-top:18px;padding-bottom:60px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
+.pdp .where-in{max-width:1440px;overflow:auto;padding-top:18px;padding-bottom:60px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
 .pic.nopic{background:#eceef6}
 .pic.nopic::after{content:'Photo to come';position:absolute;inset:0;display:grid;place-items:center;color:#8f96bd;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
 .pdp-crumb{display:flex;align-items:center;min-height:68px;font-size:15px;color:#9aa1c9;margin:0 90px 12px 0}
@@ -1329,15 +1329,27 @@ section[id]{scroll-margin-top:calc(90px + var(--headgap))}
 .made-note{font-size:15px;color:#4a3a3b;margin:12px 0 0}
 .made-card{padding:16px 0 0;grid-template-columns:minmax(0,300px)}
 
+/* one column everywhere: every modal and drawer is 1440px wide, frame, content and top bar, and the
+   scrollbar's room (--gut, measured) is always reserved, so the right edge never moves */
+.where,.drawer{--cw:1440px;--sbw:var(--gut,0px)}
+.pdp .where-in,.optdlg .where-in,.fv-list,#basket .bwrap,.drawer .scroll{scrollbar-gutter:stable}
+.optdlg .where-in{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
+#vehicle .where-in,#where .where-in,#fitview .where-in{padding-right:calc(var(--pad) + var(--gut,0px))}
+#basket header{padding-right:calc(max(0px,(100% - 1440px) / 2) + var(--pad) + var(--gut,0px))}
+/* one scrollbar everywhere: thin, so every modal's content and buttons line up the same */
+.fv-list,#basket .bwrap{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.3) transparent}
+
+.where-note{flex:none;margin:12px 0 0;font-size:14.5px;line-height:1.5;color:#9aa1c9;max-width:60em}
+
 /* modal standards: every full-screen modal carries the logo, and the cart sits left of the close.
    Both are added by script (modalChrome), so a new modal gets them without asking. */
-.where,.drawer{--xr:calc(max(0px,(100% - var(--cw,1100px)) / 2) + var(--pad) + var(--sbw,0px))}
+.where,.drawer{--xr:calc(max(0px,(100% - var(--cw,1440px)) / 2) + var(--pad) + var(--sbw,0px))}
 .fvd{--xr:calc(max(var(--sbw,0px),(100% + var(--sbw,0px) - var(--cw)) / 2) + var(--pad))}
 .where-x{right:var(--xr)}
 .where-cart{position:fixed;z-index:4;top:18px;right:calc(var(--xr) + 80px);width:68px;height:68px;border:0;border-radius:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:grid;place-items:center}
 .where-cart:hover{background:rgba(255,255,255,.2)}
 /* the car, upper left, as in the page header; the left edge mirrors the close's right edge */
-.where,.drawer{--xl:calc(max(0px,(100% - var(--cw,1100px)) / 2) + var(--pad))}
+.where,.drawer{--xl:calc(max(0px,(100% - var(--cw,1440px)) / 2) + var(--pad))}
 .fvd{--xl:calc(max(0px,(100% - var(--sbw,0px) - var(--cw)) / 2) + var(--pad))}
 .where-car{position:fixed;z-index:4;top:18px;left:var(--xl);height:68px;display:inline-flex;align-items:center;gap:12px;padding:0 16px;border:0;border-radius:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
 .where-car:hover{background:rgba(255,255,255,.2)}
@@ -1818,6 +1830,7 @@ dialog.bhost::backdrop{background:transparent}
       <svg class="ico ac-ico" aria-hidden="true"><use href="#i-search"/></svg>
       <input id="whereQ" type="text" role="combobox" aria-expanded="true" aria-controls="whereList" aria-autocomplete="list" autocomplete="off" placeholder="Find your country">
     </div>
+    <p class="where-note">The country sets the currency and the language. In this concept the languages are partial: search understands all six, and many part names change, but most of the site stays in English until the full build.</p>
     <ul class="where-list" id="whereList" role="listbox" aria-label="Countries"></ul>
   </div>
 </dialog>
@@ -6762,15 +6775,14 @@ var CarSVG = (function () {
 
   /* The close lines up with the content's right edge. A scrolling modal's scrollbar sits inside the
      content and pushes it in by its own width, which varies by browser, so measure it and match. */
+  // the scrollbar's room, measured once (a thin scrollbar; zero where scrollbars overlay), reserved in every
+  // modal whether or not it scrolls, so content and the top bar always share one right edge
   function syncX() {
-    $$('.where-x').forEach(function (x) {
-      var root = x.closest('dialog, .drawer'); if (!root) return;
-      var sc = [].slice.call(root.querySelectorAll('.where-in, .fv-list, .scroll, .bwrap')).filter(function (el) {
-        return el.getClientRects().length && el.scrollHeight > el.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(el).overflowY) && el.offsetWidth > root.clientWidth * .6;
-      })[0];
-      root.style.setProperty('--sbw', (sc ? sc.offsetWidth - sc.clientWidth : 0) + 'px'); // on the modal, so the car, cart and close all line up
-    });
+    var p = document.createElement('div'); p.style.cssText = 'position:absolute;top:-999px;width:100px;height:50px;overflow:scroll;scrollbar-width:thin';
+    document.body.appendChild(p); var g = p.offsetWidth - p.clientWidth; p.remove();
+    document.documentElement.style.setProperty('--gut', g + 'px');
   }
+  syncX();
   ['click', 'input', 'keyup'].forEach(function (ev) { document.addEventListener(ev, function () { requestAnimationFrame(function () { requestAnimationFrame(syncX); }); }, true); });
   window.addEventListener('resize', syncX);
   setTimeout(syncX, 2500); // the country question opens on its own
