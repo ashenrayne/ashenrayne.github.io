@@ -61,6 +61,17 @@ button:hover{border-color:var(--gold)}
 #brandBoards .bbl{font-size:13px;line-height:1.3}#brandBoards .bbl small{font-size:11px;opacity:.75}
 #brandBoards .c{display:flex;justify-content:center;min-width:0}#brandBoards .c svg{max-width:100%;height:auto}
 #brandBoards .c .vw{height:96px;width:auto}#brandBoards .c .vt{height:118px}#brandBoards .c .vk{height:170px}#brandBoards .c .vm{height:70px;width:auto}
+#brandBoards .bbbig{display:flex;gap:90px;align-items:center;overflow-x:auto;background:#000;color:#9a9dab;padding:44px 24px;border-bottom:1px solid rgba(127,127,127,.15)}
+#brandBoards .bbbig .bbl{flex:0 0 100px}#brandBoards .bbbig .c{flex:0 0 auto}#brandBoards .bbbig .c svg{max-width:none}
+#brandBoards .bbbig .vw{height:230px;width:auto}#brandBoards .bbbig .vt{height:290px;width:auto}#brandBoards .bbbig .vk{height:420px;width:auto}
+.wlS{display:none}svg.wlSm .wlO{display:none}svg.wlSm .wlS{display:inline}
+#crest .crwrap{display:grid;grid-template-columns:minmax(0,1fr) auto 400px;gap:40px;align-items:start;padding:16px 24px 0}
+#crest .crbig{margin:0;background:radial-gradient(70% 70% at 60% 35%,#2c2d33,#16171a);display:grid;place-items:center;height:calc(100vh - 160px);min-height:480px}
+#crest .crbig svg{height:88%;width:auto}
+#crest .crsizes{display:grid;grid-template-columns:auto auto;gap:22px 30px;align-items:end;justify-items:center;padding:24px;background:#111214}
+#crest .crsizes .g{padding:18px;display:flex;gap:18px;align-items:end}#crest .crsizes small{display:block;text-align:center;font:11px ui-monospace,Menlo,monospace;color:#8a8d99;margin-top:6px}
+#crest .crctrls{position:static;width:auto;max-height:none}
+#crest .crh{font-size:18px;font-weight:600;margin:40px 24px 4px}#crest .crp{margin:0 24px;color:#b9bcc6}#crest .crround{height:calc(80vh - 160px)}
 #brandBoards .sm{display:flex;gap:22px;align-items:center;justify-content:center}
 #fontBoard .wmtools[hidden]{display:none}#fontBoard .wmtools{display:flex;gap:40px;justify-content:center;margin:14px 0 0;font-size:13px;color:#b9bcc6}
 #fontBoard .wmtools label{display:flex;gap:10px;align-items:center}#fontBoard .wmtools input{width:220px;accent-color:var(--gold)}#fontBoard .wmtools output{font:12px ui-monospace,Menlo,monospace;min-width:30px;text-align:right}
@@ -106,6 +117,7 @@ section.wide .row{grid-template-columns:1fr 1fr;grid-template-areas:"c c" "s l";
 section.wide .ctrls{grid-area:c;position:static;width:auto;max-height:none;overflow:visible;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 36px;padding:14px 22px}
 section.wide .ctrls label{width:380px;margin:0}
 section.wide .stage{grid-area:s;position:static;height:calc(100vh - 150px);justify-self:end}
+#crest .ctrls{grid-area:auto;display:grid;gap:14px;position:static;width:auto;padding:18px}#crest .ctrls label{width:auto;margin:0}#crest .crwrap{padding:16px 24px 24px}
 section.wide .ladder{grid-area:l;justify-self:stretch;min-width:0;max-width:100%;position:static}
 section.wide .ladder .lcol{justify-content:space-between}
 section.wide .ladder{overflow-x:auto;justify-content:flex-start;align-self:stretch;align-items:stretch}
@@ -249,6 +261,10 @@ section.wide .ladder .lcol{flex:0 0 auto}
     <div class="stage"><svg id="construct" viewBox="-70 -22 140 168"></svg></div>
     <div class="ladder" id="ladder"></div>
     <div class="ctrls">
+      <label>Colour letters <select id="wl" style="grid-column:2/4;background:#25262c;color:var(--ink);border:1px solid #393a42;padding:5px"><option value="fire" selected>Fire (dark orange left to light yellow right)</option><option value="hollow">Fire outline only (hollow)</option><option value="stroke">Black, fire outline</option><option value="white">White</option><option value="orig">Orange and navy</option></select></label>
+      <label>Outline width (% of letter height) <input type="range" id="wsw" min=".2" max="40" step=".1" value="3"><output>3.0</output></label>
+      <label>Solid below (letter height, px) <input type="range" id="wsb" min="0" max="80" step="1" value="22"><output>22</output></label>
+      <label>Outline intensity <input type="range" id="wsi" min="0" max="1" step=".01" value="1"><output>1.00</output></label>
       <label>Dark colour <input type="range" id="dk" min=".3" max="2.5" step=".01" value="1"><output>1.00</output></label>
       <label>Light intensity <input type="range" id="li" min="0" max="2.5" step=".05" value="0.6"><output>0.60</output></label>
       <label>Light colour <select id="lc" style="grid-column:2/4;background:#25262c;color:var(--ink);border:1px solid #393a42;padding:5px"><option value="orig">Original (moon and sun)</option><option value="cyle" selected>Cyle's yellow and orange</option></select></label>
@@ -311,6 +327,52 @@ section.wide .ladder .lcol{flex:0 0 auto}
     </div>
   </div>
 </section>
+<section class="wide" id="crest">
+  <h2>2 · New badge</h2>
+  <p>A second direction, after the classic badge layout: one flat field, a black edge, the eagle in black, ASHEN across the top and RAYNE across the bottom. No flag band. A tall 5:8 panel (or the shield, to compare), the same eagle and the same Michroma letters as everywhere else.</p>
+  <div class="crwrap">
+    <figure class="crbig"><svg id="crestC" viewBox="-60 -16 120 156"></svg></figure>
+    <div class="crsizes" id="crSizes"></div>
+    <div class="ctrls crctrls">
+      <label>Shape <select id="crShape" style="grid-column:2/4;background:#25262c;color:var(--ink);border:1px solid #393a42;padding:5px"><option value="panel" selected>Tall panel (the badge's 5:8)</option><option value="shield">The shield</option></select></label>
+      <label>Field <input type="color" id="crCol" value="#f7931e" style="grid-column:2/4;width:100%;height:26px;background:none;border:1px solid #393a42"></label>
+      <label>Eagle and edge <input type="color" id="crInk" value="#000000" style="grid-column:2/4;width:100%;height:26px;background:none;border:1px solid #393a42"></label>
+      <label>Edge <input type="range" id="crEdge" min="0" max="10" step=".1" value="3"><output>3.0</output></label>
+      <label>Eagle height <input type="range" id="crEs" min="30" max="90" step=".5" value="50"><output>50.0</output></label>
+      <label>Eagle optical nudge (sideways) <input type="range" id="crEx" min="-4" max="4" step=".05" value="0"><output>0.0</output></label>
+      <label>Letter height <input type="range" id="crT" min="3" max="16" step=".1" value="8"><output>8.0</output></label>
+      <label>Margin, top and bottom <input type="range" id="crTy" min="0" max="20" step=".1" value="4"><output>4.0</output></label>
+      <label class="chk"><input type="checkbox" id="crSm" checked> WEBSITE and DEVELOPMENT</label>
+      <label>Small letters (% of big) <input type="range" id="crSh" min="10" max="50" step=".5" value="25"><output>25.0</output></label>
+      <label>Small gap (% of big) <input type="range" id="crSg" min="10" max="120" step="1" value="45"><output>45.0</output></label>
+      <label class="chk"><input type="checkbox" id="crShine" checked> Shine</label>
+      <label>Shine intensity <input type="range" id="crShI" min="0" max="1" step=".01" value=".35"><output>0.35</output></label>
+      <label>Shine size (% of width) <input type="range" id="crShS" min="4" max="100" step=".5" value="34"><output>34.0</output></label>
+    </div>
+  </div>
+  <h3 class="crh">The roundel</h3>
+  <p class="crp">The steering-wheel badge: a solid circle and the eagle in the middle, WEBSITEDEVELOPMENT as one run round the edge.</p>
+  <div class="crwrap">
+    <figure class="crbig crround"><svg id="roundC" viewBox="-60 -60 120 120"></svg></figure>
+    <div class="crsizes" id="rdSizes"></div>
+    <div class="ctrls crctrls">
+      <label>Circle <input type="color" id="crRCol" value="#f7931e" style="grid-column:2/4;width:100%;height:26px;background:none;border:1px solid #393a42"></label>
+      <label>Eagle <input type="color" id="crRInk" value="#000000" style="grid-column:2/4;width:100%;height:26px;background:none;border:1px solid #393a42"></label>
+      <label>Eagle width <input type="range" id="crREs" min="30" max="95" step=".5" value="72"><output>72.0</output></label>
+      <label>Eagle height offset <input type="range" id="crREy" min="-15" max="15" step=".5" value="0"><output>0.0</output></label>
+      <label>Eagle optical nudge (sideways) <input type="range" id="crREx" min="-4" max="4" step=".05" value="0"><output>0.0</output></label>
+      <label>Edge <input type="range" id="crREdge" min="0" max="10" step=".1" value="0"><output>0.0</output></label>
+      <label class="chk"><input type="checkbox" id="crRT" checked> WEBSITEDEVELOPMENT round the edge</label>
+      <label>Ring letters (% of radius) <input type="range" id="crRh" min=".5" max="30" step=".1" value="9"><output>9.0</output></label>
+      <p style="margin:0"><button type="button" id="crRFit" style="background:#25262c;color:var(--ink);border:1px solid #393a42;padding:5px 10px;cursor:pointer">Fit to normal letter spacing</button></p>
+      <label>Ring margin (% of radius) <input type="range" id="crRm" min="0" max="15" step=".1" value="4"><output>4.0</output></label>
+      <label class="chk"><input type="checkbox" id="crRShine" checked> Sphere shine</label>
+      <label>Highlight intensity <input type="range" id="crRShI" min="0" max="1" step=".01" value=".6"><output>0.60</output></label>
+      <label>Highlight size (% of radius) <input type="range" id="crRShS" min="5" max="120" step=".5" value="45"><output>45.0</output></label>
+      <label>Shade toward the lower left <input type="range" id="crRShD" min="0" max="1" step=".01" value=".4"><output>0.40</output></label>
+    </div>
+  </div>
+</section>
 <section class="wide" id="brandBoards">
   <h2>The wordmark</h2>
   <p>ASHEN, the shield and RAYNE in Michroma, all capitals, on each ground: centred, shield beside, the words stacked beside the shield, the shield over the name, the AR monogram, and the small sizes (the shield, the shield with AR at 30px, the AR at 16px). A colour row and a one-colour row per ground.</p>
@@ -330,7 +392,7 @@ window.EAGLE={bbox:[1.19, -0.44, 1231.81, 976.35],d:"M616.5 976.34L616.5 976.35C
 </script>
 <script>
 // wordmark letters as vector, trimmed to cap height and baseline. Built by wordmarks.py
-window.WORDMARKS={"Michroma": {"G": {"A": ["M64.0 -0.0L288.0 -0.0L688.0 -704.0L1488.0 -704.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM778.9 -864.0L1088.0 -1408.0L1397.1 -864.0Z", 2176, 64.0, 2112.0], "S": ["M1827.0 -444.0Q1827.0 -344.0 1812.5 -283.0Q1798.0 -222.0 1748.0 -189.5Q1698.0 -157.0 1594.0 -145.5Q1490.0 -134.0 1311.0 -134.0L853.0 -134.0Q693.0 -134.0 589.5 -140.5Q486.0 -147.0 428.5 -180.5Q371.0 -214.0 348.0 -291.0Q325.0 -368.0 325.0 -509.0L133.0 -509.0Q133.0 -329.0 169.0 -221.0Q205.0 -113.0 287.5 -58.5Q370.0 -4.0 509.0 14.0Q648.0 32.0 853.0 32.0L1321.0 32.0Q1546.0 32.0 1684.0 8.0Q1822.0 -16.0 1895.0 -71.0Q1968.0 -126.0 1993.5 -217.5Q2019.0 -309.0 2019.0 -444.0Q2019.0 -568.0 1998.5 -649.5Q1978.0 -731.0 1915.5 -779.0Q1853.0 -827.0 1727.5 -848.5Q1602.0 -870.0 1392.0 -873.0L796.0 -881.0Q632.0 -883.0 537.0 -892.5Q442.0 -902.0 396.5 -927.5Q351.0 -953.0 338.0 -1002.0Q325.0 -1051.0 325.0 -1132.0Q325.0 -1228.0 343.5 -1283.0Q362.0 -1338.0 417.0 -1363.0Q472.0 -1388.0 579.5 -1395.0Q687.0 -1402.0 866.0 -1402.0L1284.0 -1402.0Q1431.0 -1402.0 1530.0 -1400.0Q1629.0 -1398.0 1687.5 -1373.0Q1746.0 -1348.0 1771.5 -1279.5Q1797.0 -1211.0 1797.0 -1077.0L1989.0 -1077.0Q1989.0 -1250.0 1954.5 -1349.0Q1920.0 -1448.0 1840.0 -1495.0Q1760.0 -1542.0 1624.0 -1555.0Q1488.0 -1568.0 1284.0 -1568.0L856.0 -1568.0Q631.0 -1568.0 489.0 -1548.5Q347.0 -1529.0 269.5 -1481.0Q192.0 -1433.0 162.5 -1348.0Q133.0 -1263.0 133.0 -1132.0Q133.0 -1012.0 154.5 -932.0Q176.0 -852.0 240.0 -804.5Q304.0 -757.0 429.0 -735.0Q554.0 -713.0 760.0 -710.0L1316.0 -702.0Q1495.0 -699.0 1598.0 -691.5Q1701.0 -684.0 1750.0 -659.5Q1799.0 -635.0 1813.0 -584.0Q1827.0 -533.0 1827.0 -444.0Z", 2142, 133.0, 2019.0], "H": ["M196.0 -0.0L388.0 -0.0L388.0 -704.0L1796.0 -704.0L1796.0 -0.0L1988.0 -0.0L1988.0 -1536.0L1796.0 -1536.0L1796.0 -864.0L388.0 -864.0L388.0 -1536.0L196.0 -1536.0Z", 2184, 196.0, 1988.0], "E": ["M192.0 -0.0L1728.0 -0.0L1728.0 -160.0L384.0 -160.0L384.0 -704.0L1645.0 -704.0L1645.0 -864.0L384.0 -864.0L384.0 -1376.0L1728.0 -1376.0L1728.0 -1536.0L192.0 -1536.0Z", 1792, 192.0, 1728.0], "N": ["M192.0 -0.0L384.0 -0.0L384.0 -1310.0L386.0 -1310.0L1929.0 -0.0L2129.0 -0.0L2129.0 -1536.0L1937.0 -1536.0L1937.0 -237.0L1935.0 -237.0L392.0 -1536.0L192.0 -1536.0Z", 2321, 192.0, 2129.0], "R": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0Z", 2087, 196.0, 1916.0], "Y": ["M992.0 -0.0L1184.0 -0.0L1184.0 -640.0L2048.0 -1536.0L1792.0 -1536.0L1088.0 -784.0L384.0 -1536.0L128.0 -1536.0L992.0 -640.0Z", 2176, 128.0, 2048.0]}, "track": 122.88, "cap": 1536, "upm": 2048, "ASHEN": ["M64.0 -0.0L288.0 -0.0L688.0 -704.0L1488.0 -704.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM778.9 -864.0L1088.0 -1408.0L1397.1 -864.0ZM4125.9 -444.0Q4125.9 -344.0 4111.4 -283.0Q4096.9 -222.0 4046.9 -189.5Q3996.9 -157.0 3892.9 -145.5Q3788.9 -134.0 3609.9 -134.0L3151.9 -134.0Q2991.9 -134.0 2888.4 -140.5Q2784.9 -147.0 2727.4 -180.5Q2669.9 -214.0 2646.9 -291.0Q2623.9 -368.0 2623.9 -509.0L2431.9 -509.0Q2431.9 -329.0 2467.9 -221.0Q2503.9 -113.0 2586.4 -58.5Q2668.9 -4.0 2807.9 14.0Q2946.9 32.0 3151.9 32.0L3619.9 32.0Q3844.9 32.0 3982.9 8.0Q4120.9 -16.0 4193.9 -71.0Q4266.9 -126.0 4292.4 -217.5Q4317.9 -309.0 4317.9 -444.0Q4317.9 -568.0 4297.4 -649.5Q4276.9 -731.0 4214.4 -779.0Q4151.9 -827.0 4026.4 -848.5Q3900.9 -870.0 3690.9 -873.0L3094.9 -881.0Q2930.9 -883.0 2835.9 -892.5Q2740.9 -902.0 2695.4 -927.5Q2649.9 -953.0 2636.9 -1002.0Q2623.9 -1051.0 2623.9 -1132.0Q2623.9 -1228.0 2642.4 -1283.0Q2660.9 -1338.0 2715.9 -1363.0Q2770.9 -1388.0 2878.4 -1395.0Q2985.9 -1402.0 3164.9 -1402.0L3582.9 -1402.0Q3729.9 -1402.0 3828.9 -1400.0Q3927.9 -1398.0 3986.4 -1373.0Q4044.9 -1348.0 4070.4 -1279.5Q4095.9 -1211.0 4095.9 -1077.0L4287.9 -1077.0Q4287.9 -1250.0 4253.4 -1349.0Q4218.9 -1448.0 4138.9 -1495.0Q4058.9 -1542.0 3922.9 -1555.0Q3786.9 -1568.0 3582.9 -1568.0L3154.9 -1568.0Q2929.9 -1568.0 2787.9 -1548.5Q2645.9 -1529.0 2568.4 -1481.0Q2490.9 -1433.0 2461.4 -1348.0Q2431.9 -1263.0 2431.9 -1132.0Q2431.9 -1012.0 2453.4 -932.0Q2474.9 -852.0 2538.9 -804.5Q2602.9 -757.0 2727.9 -735.0Q2852.9 -713.0 3058.9 -710.0L3614.9 -702.0Q3793.9 -699.0 3896.9 -691.5Q3999.9 -684.0 4048.9 -659.5Q4097.9 -635.0 4111.9 -584.0Q4125.9 -533.0 4125.9 -444.0ZM4759.8 -0.0L4951.8 -0.0L4951.8 -704.0L6359.8 -704.0L6359.8 -0.0L6551.8 -0.0L6551.8 -1536.0L6359.8 -1536.0L6359.8 -864.0L4951.8 -864.0L4951.8 -1536.0L4759.8 -1536.0ZM7062.6 -0.0L8598.6 -0.0L8598.6 -160.0L7254.6 -160.0L7254.6 -704.0L8515.6 -704.0L8515.6 -864.0L7254.6 -864.0L7254.6 -1376.0L8598.6 -1376.0L8598.6 -1536.0L7062.6 -1536.0ZM8977.5 -0.0L9169.5 -0.0L9169.5 -1310.0L9171.5 -1310.0L10714.5 -0.0L10914.5 -0.0L10914.5 -1536.0L10722.5 -1536.0L10722.5 -237.0L10720.5 -237.0L9177.5 -1536.0L8977.5 -1536.0Z", 11106.52], "RAYNE": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0ZM2273.9 -0.0L2497.9 -0.0L2897.9 -704.0L3697.9 -704.0L4097.9 -0.0L4321.9 -0.0L3425.9 -1536.0L3169.9 -1536.0ZM2988.8 -864.0L3297.9 -1408.0L3607.0 -864.0ZM5500.8 -0.0L5692.8 -0.0L5692.8 -640.0L6556.8 -1536.0L6300.8 -1536.0L5596.8 -784.0L4892.8 -1536.0L4636.8 -1536.0L5500.8 -640.0ZM6999.6 -0.0L7191.6 -0.0L7191.6 -1310.0L7193.6 -1310.0L8736.6 -0.0L8936.6 -0.0L8936.6 -1536.0L8744.6 -1536.0L8744.6 -237.0L8742.6 -237.0L7199.6 -1536.0L6999.6 -1536.0ZM9443.5 -0.0L10979.5 -0.0L10979.5 -160.0L9635.5 -160.0L9635.5 -704.0L10896.5 -704.0L10896.5 -864.0L9635.5 -864.0L9635.5 -1376.0L10979.5 -1376.0L10979.5 -1536.0L9443.5 -1536.0Z", 11043.52], "SPACE": 582, "A": ["M64.0 -0.0L288.0 -0.0L640.8 -621.0L1535.2 -621.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM735.2 -787.0L1088.0 -1408.0L1440.8 -787.0Z", 2176, 64.0, 2112.0], "R": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0Z", 2087, 196.0, 1916.0]}};
+window.WORDMARKS={"Michroma": {"G": {"A": ["M64.0 -0.0L288.0 -0.0L688.0 -704.0L1488.0 -704.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM778.9 -864.0L1088.0 -1408.0L1397.1 -864.0Z", 2176, 64.0, 2112.0], "S": ["M1827.0 -444.0Q1827.0 -344.0 1812.5 -283.0Q1798.0 -222.0 1748.0 -189.5Q1698.0 -157.0 1594.0 -145.5Q1490.0 -134.0 1311.0 -134.0L853.0 -134.0Q693.0 -134.0 589.5 -140.5Q486.0 -147.0 428.5 -180.5Q371.0 -214.0 348.0 -291.0Q325.0 -368.0 325.0 -509.0L133.0 -509.0Q133.0 -329.0 169.0 -221.0Q205.0 -113.0 287.5 -58.5Q370.0 -4.0 509.0 14.0Q648.0 32.0 853.0 32.0L1321.0 32.0Q1546.0 32.0 1684.0 8.0Q1822.0 -16.0 1895.0 -71.0Q1968.0 -126.0 1993.5 -217.5Q2019.0 -309.0 2019.0 -444.0Q2019.0 -568.0 1998.5 -649.5Q1978.0 -731.0 1915.5 -779.0Q1853.0 -827.0 1727.5 -848.5Q1602.0 -870.0 1392.0 -873.0L796.0 -881.0Q632.0 -883.0 537.0 -892.5Q442.0 -902.0 396.5 -927.5Q351.0 -953.0 338.0 -1002.0Q325.0 -1051.0 325.0 -1132.0Q325.0 -1228.0 343.5 -1283.0Q362.0 -1338.0 417.0 -1363.0Q472.0 -1388.0 579.5 -1395.0Q687.0 -1402.0 866.0 -1402.0L1284.0 -1402.0Q1431.0 -1402.0 1530.0 -1400.0Q1629.0 -1398.0 1687.5 -1373.0Q1746.0 -1348.0 1771.5 -1279.5Q1797.0 -1211.0 1797.0 -1077.0L1989.0 -1077.0Q1989.0 -1250.0 1954.5 -1349.0Q1920.0 -1448.0 1840.0 -1495.0Q1760.0 -1542.0 1624.0 -1555.0Q1488.0 -1568.0 1284.0 -1568.0L856.0 -1568.0Q631.0 -1568.0 489.0 -1548.5Q347.0 -1529.0 269.5 -1481.0Q192.0 -1433.0 162.5 -1348.0Q133.0 -1263.0 133.0 -1132.0Q133.0 -1012.0 154.5 -932.0Q176.0 -852.0 240.0 -804.5Q304.0 -757.0 429.0 -735.0Q554.0 -713.0 760.0 -710.0L1316.0 -702.0Q1495.0 -699.0 1598.0 -691.5Q1701.0 -684.0 1750.0 -659.5Q1799.0 -635.0 1813.0 -584.0Q1827.0 -533.0 1827.0 -444.0Z", 2142, 133.0, 2019.0], "H": ["M196.0 -0.0L388.0 -0.0L388.0 -704.0L1796.0 -704.0L1796.0 -0.0L1988.0 -0.0L1988.0 -1536.0L1796.0 -1536.0L1796.0 -864.0L388.0 -864.0L388.0 -1536.0L196.0 -1536.0Z", 2184, 196.0, 1988.0], "E": ["M192.0 -0.0L1728.0 -0.0L1728.0 -160.0L384.0 -160.0L384.0 -704.0L1645.0 -704.0L1645.0 -864.0L384.0 -864.0L384.0 -1376.0L1728.0 -1376.0L1728.0 -1536.0L192.0 -1536.0Z", 1792, 192.0, 1728.0], "N": ["M192.0 -0.0L384.0 -0.0L384.0 -1310.0L386.0 -1310.0L1929.0 -0.0L2129.0 -0.0L2129.0 -1536.0L1937.0 -1536.0L1937.0 -237.0L1935.0 -237.0L392.0 -1536.0L192.0 -1536.0Z", 2321, 192.0, 2129.0], "R": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0Z", 2087, 196.0, 1916.0], "Y": ["M992.0 -0.0L1184.0 -0.0L1184.0 -640.0L2048.0 -1536.0L1792.0 -1536.0L1088.0 -784.0L384.0 -1536.0L128.0 -1536.0L992.0 -640.0Z", 2176, 128.0, 2048.0], "W": ["M832.0 -0.0L1088.0 -0.0L1696.0 -1343.0L2304.0 -0.0L2560.0 -0.0L3251.0 -1536.0L3030.0 -1536.0L2432.0 -163.0L1808.0 -1536.0L1584.0 -1536.0L960.0 -163.0L298.0 -1536.0L77.0 -1536.0Z", 3328, 77.0, 3251.0], "B": ["M192.0 -0.0L1331.0 -0.0Q1520.0 -0.0 1646.5 -19.0Q1773.0 -38.0 1847.0 -86.5Q1921.0 -135.0 1952.5 -223.0Q1984.0 -311.0 1984.0 -448.0Q1984.0 -606.0 1909.0 -710.5Q1834.0 -815.0 1664.0 -832.0Q1794.0 -841.0 1857.0 -930.0Q1920.0 -1019.0 1920.0 -1155.0Q1920.0 -1306.0 1866.5 -1388.5Q1813.0 -1471.0 1701.5 -1503.5Q1590.0 -1536.0 1416.0 -1536.0L192.0 -1536.0ZM384.0 -160.0L384.0 -736.0L1279.0 -736.0Q1386.0 -736.0 1479.0 -730.0Q1572.0 -724.0 1642.5 -698.0Q1713.0 -672.0 1752.5 -613.0Q1792.0 -554.0 1792.0 -448.0Q1792.0 -345.0 1771.0 -286.5Q1750.0 -228.0 1698.5 -201.0Q1647.0 -174.0 1557.5 -167.0Q1468.0 -160.0 1331.0 -160.0ZM384.0 -896.0L384.0 -1376.0L1416.0 -1376.0Q1535.0 -1376.0 1603.0 -1363.0Q1671.0 -1350.0 1699.5 -1303.0Q1728.0 -1256.0 1728.0 -1155.0Q1728.0 -1026.0 1680.0 -972.0Q1632.0 -918.0 1533.0 -907.0Q1434.0 -896.0 1279.0 -896.0Z", 2112, 192.0, 1984.0], "I": ["M192.0 -0.0L384.0 -0.0L384.0 -1536.0L192.0 -1536.0Z", 576, 192.0, 384.0], "T": ["M862.0 -0.0L1054.0 -0.0L1054.0 -1376.0L1822.0 -1376.0L1822.0 -1536.0L94.0 -1536.0L94.0 -1376.0L862.0 -1376.0Z", 1916, 94.0, 1822.0], "D": ["M196.0 -0.0L1336.0 -0.0Q1561.0 -0.0 1706.0 -29.5Q1851.0 -59.0 1932.5 -138.5Q2014.0 -218.0 2046.5 -365.5Q2079.0 -513.0 2079.0 -748.0L2079.0 -788.0Q2079.0 -1031.0 2046.5 -1179.0Q2014.0 -1327.0 1932.5 -1404.5Q1851.0 -1482.0 1706.0 -1509.0Q1561.0 -1536.0 1336.0 -1536.0L196.0 -1536.0ZM388.0 -166.0L388.0 -1370.0L1336.0 -1370.0Q1479.0 -1370.0 1577.0 -1362.0Q1675.0 -1354.0 1736.5 -1324.5Q1798.0 -1295.0 1830.5 -1232.5Q1863.0 -1170.0 1875.0 -1062.0Q1887.0 -954.0 1887.0 -788.0L1887.0 -748.0Q1887.0 -548.0 1867.0 -431.0Q1847.0 -314.0 1790.0 -257.0Q1733.0 -200.0 1624.0 -183.0Q1515.0 -166.0 1336.0 -166.0Z", 2207, 196.0, 2079.0], "V": ["M896.0 -0.0L1152.0 -0.0L1977.0 -1536.0L1760.0 -1536.0L1024.0 -136.0L288.0 -1536.0L68.0 -1536.0Z", 2048, 68.0, 1977.0], "L": ["M192.0 -0.0L1600.0 -0.0L1600.0 -160.0L384.0 -160.0L384.0 -1536.0L192.0 -1536.0Z", 1664, 192.0, 1600.0], "O": ["M871.0 32.0L1274.0 32.0Q1499.0 32.0 1644.0 1.5Q1789.0 -29.0 1870.5 -111.0Q1952.0 -193.0 1984.5 -347.0Q2017.0 -501.0 2017.0 -748.0L2017.0 -788.0Q2017.0 -992.0 1997.0 -1130.5Q1977.0 -1269.0 1928.0 -1356.0Q1879.0 -1443.0 1794.5 -1489.0Q1710.0 -1535.0 1582.0 -1551.5Q1454.0 -1568.0 1274.0 -1568.0L871.0 -1568.0Q691.0 -1568.0 563.0 -1551.5Q435.0 -1535.0 350.5 -1489.0Q266.0 -1443.0 217.0 -1356.0Q168.0 -1269.0 148.0 -1130.5Q128.0 -992.0 128.0 -788.0L128.0 -748.0Q128.0 -501.0 160.5 -347.0Q193.0 -193.0 274.5 -111.0Q356.0 -29.0 501.0 1.5Q646.0 32.0 871.0 32.0ZM871.0 -134.0Q728.0 -134.0 630.0 -144.0Q532.0 -154.0 470.5 -187.0Q409.0 -220.0 376.5 -287.0Q344.0 -354.0 332.0 -466.0Q320.0 -578.0 320.0 -748.0L320.0 -788.0Q320.0 -964.0 332.0 -1078.0Q344.0 -1192.0 376.5 -1258.0Q409.0 -1324.0 470.5 -1354.5Q532.0 -1385.0 630.0 -1393.5Q728.0 -1402.0 871.0 -1402.0L1274.0 -1402.0Q1417.0 -1402.0 1515.0 -1393.5Q1613.0 -1385.0 1674.5 -1354.5Q1736.0 -1324.0 1768.5 -1258.0Q1801.0 -1192.0 1813.0 -1078.0Q1825.0 -964.0 1825.0 -788.0L1825.0 -748.0Q1825.0 -578.0 1813.0 -466.0Q1801.0 -354.0 1768.5 -287.0Q1736.0 -220.0 1674.5 -187.0Q1613.0 -154.0 1515.0 -144.0Q1417.0 -134.0 1274.0 -134.0Z", 2145, 128.0, 2017.0], "P": ["M196.0 -0.0L388.0 -0.0L388.0 -592.0L1218.0 -592.0Q1443.0 -592.0 1581.0 -616.5Q1719.0 -641.0 1792.0 -694.0Q1865.0 -747.0 1890.5 -833.5Q1916.0 -920.0 1916.0 -1044.0L1916.0 -1084.0Q1916.0 -1214.0 1891.0 -1301.5Q1866.0 -1389.0 1795.0 -1440.5Q1724.0 -1492.0 1586.5 -1514.0Q1449.0 -1536.0 1224.0 -1536.0L196.0 -1536.0ZM1724.0 -1084.0L1724.0 -1044.0Q1724.0 -955.0 1706.0 -898.5Q1688.0 -842.0 1634.0 -811.5Q1580.0 -781.0 1473.0 -769.5Q1366.0 -758.0 1187.0 -758.0L388.0 -758.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1360.5Q1580.0 -1351.0 1634.0 -1322.0Q1688.0 -1293.0 1706.0 -1236.0Q1724.0 -1179.0 1724.0 -1084.0Z", 1991, 196.0, 1916.0], "M": ["M196.0 -0.0L388.0 -0.0L388.0 -1362.0L1329.0 -101.0L1503.0 -101.0L2420.0 -1362.0L2420.0 -0.0L2612.0 -0.0L2612.0 -1536.0L2326.0 -1536.0L1411.0 -283.0L482.0 -1536.0L196.0 -1536.0Z", 2808, 196.0, 2612.0]}, "track": 122.88, "cap": 1536, "upm": 2048, "ASHEN": ["M64.0 -0.0L288.0 -0.0L688.0 -704.0L1488.0 -704.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM778.9 -864.0L1088.0 -1408.0L1397.1 -864.0ZM4125.9 -444.0Q4125.9 -344.0 4111.4 -283.0Q4096.9 -222.0 4046.9 -189.5Q3996.9 -157.0 3892.9 -145.5Q3788.9 -134.0 3609.9 -134.0L3151.9 -134.0Q2991.9 -134.0 2888.4 -140.5Q2784.9 -147.0 2727.4 -180.5Q2669.9 -214.0 2646.9 -291.0Q2623.9 -368.0 2623.9 -509.0L2431.9 -509.0Q2431.9 -329.0 2467.9 -221.0Q2503.9 -113.0 2586.4 -58.5Q2668.9 -4.0 2807.9 14.0Q2946.9 32.0 3151.9 32.0L3619.9 32.0Q3844.9 32.0 3982.9 8.0Q4120.9 -16.0 4193.9 -71.0Q4266.9 -126.0 4292.4 -217.5Q4317.9 -309.0 4317.9 -444.0Q4317.9 -568.0 4297.4 -649.5Q4276.9 -731.0 4214.4 -779.0Q4151.9 -827.0 4026.4 -848.5Q3900.9 -870.0 3690.9 -873.0L3094.9 -881.0Q2930.9 -883.0 2835.9 -892.5Q2740.9 -902.0 2695.4 -927.5Q2649.9 -953.0 2636.9 -1002.0Q2623.9 -1051.0 2623.9 -1132.0Q2623.9 -1228.0 2642.4 -1283.0Q2660.9 -1338.0 2715.9 -1363.0Q2770.9 -1388.0 2878.4 -1395.0Q2985.9 -1402.0 3164.9 -1402.0L3582.9 -1402.0Q3729.9 -1402.0 3828.9 -1400.0Q3927.9 -1398.0 3986.4 -1373.0Q4044.9 -1348.0 4070.4 -1279.5Q4095.9 -1211.0 4095.9 -1077.0L4287.9 -1077.0Q4287.9 -1250.0 4253.4 -1349.0Q4218.9 -1448.0 4138.9 -1495.0Q4058.9 -1542.0 3922.9 -1555.0Q3786.9 -1568.0 3582.9 -1568.0L3154.9 -1568.0Q2929.9 -1568.0 2787.9 -1548.5Q2645.9 -1529.0 2568.4 -1481.0Q2490.9 -1433.0 2461.4 -1348.0Q2431.9 -1263.0 2431.9 -1132.0Q2431.9 -1012.0 2453.4 -932.0Q2474.9 -852.0 2538.9 -804.5Q2602.9 -757.0 2727.9 -735.0Q2852.9 -713.0 3058.9 -710.0L3614.9 -702.0Q3793.9 -699.0 3896.9 -691.5Q3999.9 -684.0 4048.9 -659.5Q4097.9 -635.0 4111.9 -584.0Q4125.9 -533.0 4125.9 -444.0ZM4759.8 -0.0L4951.8 -0.0L4951.8 -704.0L6359.8 -704.0L6359.8 -0.0L6551.8 -0.0L6551.8 -1536.0L6359.8 -1536.0L6359.8 -864.0L4951.8 -864.0L4951.8 -1536.0L4759.8 -1536.0ZM7062.6 -0.0L8598.6 -0.0L8598.6 -160.0L7254.6 -160.0L7254.6 -704.0L8515.6 -704.0L8515.6 -864.0L7254.6 -864.0L7254.6 -1376.0L8598.6 -1376.0L8598.6 -1536.0L7062.6 -1536.0ZM8977.5 -0.0L9169.5 -0.0L9169.5 -1310.0L9171.5 -1310.0L10714.5 -0.0L10914.5 -0.0L10914.5 -1536.0L10722.5 -1536.0L10722.5 -237.0L10720.5 -237.0L9177.5 -1536.0L8977.5 -1536.0Z", 11106.52], "RAYNE": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0ZM2273.9 -0.0L2497.9 -0.0L2897.9 -704.0L3697.9 -704.0L4097.9 -0.0L4321.9 -0.0L3425.9 -1536.0L3169.9 -1536.0ZM2988.8 -864.0L3297.9 -1408.0L3607.0 -864.0ZM5500.8 -0.0L5692.8 -0.0L5692.8 -640.0L6556.8 -1536.0L6300.8 -1536.0L5596.8 -784.0L4892.8 -1536.0L4636.8 -1536.0L5500.8 -640.0ZM6999.6 -0.0L7191.6 -0.0L7191.6 -1310.0L7193.6 -1310.0L8736.6 -0.0L8936.6 -0.0L8936.6 -1536.0L8744.6 -1536.0L8744.6 -237.0L8742.6 -237.0L7199.6 -1536.0L6999.6 -1536.0ZM9443.5 -0.0L10979.5 -0.0L10979.5 -160.0L9635.5 -160.0L9635.5 -704.0L10896.5 -704.0L10896.5 -864.0L9635.5 -864.0L9635.5 -1376.0L10979.5 -1376.0L10979.5 -1536.0L9443.5 -1536.0Z", 11043.52], "SPACE": 582, "A": ["M64.0 -0.0L288.0 -0.0L640.8 -621.0L1535.2 -621.0L1888.0 -0.0L2112.0 -0.0L1216.0 -1536.0L960.0 -1536.0ZM735.2 -787.0L1088.0 -1408.0L1440.8 -787.0Z", 2176, 64.0, 2112.0], "R": ["M196.0 -1536.0L196.0 -0.0L388.0 -0.0L388.0 -621.0L1311.5 -621.0Q1333.0 -621.0 1353.0 -622.0L1680.0 -0.0L1872.0 -0.0L1538.0 -636.0Q1697.0 -658.0 1778.0 -711.5Q1859.0 -765.0 1887.5 -851.5Q1916.0 -938.0 1916.0 -1058.0L1916.0 -1098.0Q1916.0 -1228.0 1891.0 -1313.0Q1866.0 -1398.0 1795.0 -1447.0Q1724.0 -1496.0 1586.5 -1516.0Q1449.0 -1536.0 1224.0 -1536.0ZM388.0 -787.0L388.0 -1370.0L1187.0 -1370.0Q1366.0 -1370.0 1473.0 -1362.5Q1580.0 -1355.0 1634.0 -1329.0Q1688.0 -1303.0 1706.0 -1248.0Q1724.0 -1193.0 1724.0 -1098.0L1724.0 -1058.0Q1724.0 -974.0 1711.0 -921.0Q1698.0 -868.0 1651.5 -839.0Q1605.0 -810.0 1506.5 -798.5Q1408.0 -787.0 1237.0 -787.0Z", 2087, 196.0, 1916.0]}};
 </script>
 <script>
 // the crown's fleur-de-lis, final: centre petal plus two side petals, each half two curves, mirrored. Baked from fleur.json (shaped by hand in the lab)
@@ -806,6 +868,15 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
   $('#sb').addEventListener('change', function () { build(); construct(); });
   ['lm', 'lcl', 'lcr', 'lc'].forEach(function (id) { $('#' + id).addEventListener('input', function () { if (id === 'lm') this.nextElementSibling.textContent = fmt('lm', this.value); build(); construct(); }); });
   $('#dk').addEventListener('input', function () { this.nextElementSibling.textContent = fmt('dk', this.value); paintDK(); build(); construct(); if (window.renderWM) renderWM(); });
+  // the crest follows every control (the eagle and the shield come from the construction)
+  ['input', 'change'].forEach(function (ev) { document.addEventListener(ev, function (e) {
+    if (e.target && /^cr[A-Z]/.test(e.target.id) && e.target.nextElementSibling && e.target.nextElementSibling.tagName === 'OUTPUT') e.target.nextElementSibling.textContent = (+e.target.value).toFixed(1);
+    clearTimeout(window.crTimer); window.crTimer = setTimeout(function () { if (window.renderCrest) renderCrest(); }, 30);
+  }); });
+  $('#crRFit').addEventListener('click', function () { if (!window.RING_FIT) return; var e = $('#crRh'); e.value = RING_FIT.toFixed(1); e.dispatchEvent(new Event('input', { bubbles: true })); });
+  $('#wl').addEventListener('change', function () { if (window.renderWM) renderWM(); });
+  $('#wsb').addEventListener('input', function () { this.nextElementSibling.textContent = this.value; wlBreak(); });
+  ['wsw', 'wsi'].forEach(function (id) { $('#' + id).addEventListener('input', function () { this.nextElementSibling.textContent = id === 'wsi' ? (+this.value).toFixed(2) : (+this.value).toFixed(1); if (window.renderWM) renderWM(); }); });
   $('#flip').addEventListener('change', function () { eagleForm(); placeEagle(); build(); construct(); if (window.renderWM) renderWM(); });
   $('#ef').addEventListener('change', function () { build(); construct(); });
   $('#ks').addEventListener('change', function () { build(); construct(); });
@@ -824,10 +895,10 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
     var g = $('#sheen'); g.setAttribute('x1', f(-Math.cos(rad) * 55)); g.setAttribute('y1', f(60 - Math.sin(rad) * 60)); g.setAttribute('x2', f(Math.cos(rad) * 55)); g.setAttribute('y2', f(60 + Math.sin(rad) * 60));
   }
   $('#az').addEventListener('input', light); $('#el').addEventListener('input', light);
-  function fmt(id, v) { if (id === 'lm') return BLENDS[+v].replace('color-', 'colour ').replace('-', ' '); return id === 'es' || id === 'fls' || id === 'vr' || id === 'an' || id === 'kn' || id === 'eb' || id === 'eb2' ? v : /^(o|dk|li|vs|vc|rs|eo|ao|kz|kq|bo|cs|cy)/.test(id) ? (+v).toFixed(2) : (+v).toFixed(1); }
+  function fmt(id, v) { if (id === 'lm') return BLENDS[+v].replace('color-', 'colour ').replace('-', ' '); return id === 'es' || id === 'fls' || id === 'vr' || id === 'an' || id === 'kn' || id === 'eb' || id === 'eb2' ? v : /^(o|dk|wsi|li|vs|vc|rs|eo|ao|kz|kq|bo|cs|cy)/.test(id) ? (+v).toFixed(2) : (+v).toFixed(1); }
   ['eb', 'eb2', 'cs', 'cy', 'bo', 'kq', 'kw', 'kn', 'kz', 'an', 'ao', 'eo', 'ec', 'ly', 'li', 'rs', 'vs', 'vr', 'vc', 'es', 'ey', 'bR', 'bB', 'bL', 'oL', 'oR', 'oE'].forEach(function (id) { $('#' + id).addEventListener('input', function () { this.nextElementSibling.textContent = fmt(id, this.value); placeEagle(); build(); construct(); }); });
   // settings persist: written to settings.json through the lab's server, and mirrored in this browser
-  var KEEP = [ 'dk', 'lc', 'lcl', 'lcr', 'lm', 'fls', 'flh',  'eb', 'eb2', 'sb', 'sv', 'cs', 'cy', 'we', 'bo', 'kq', 'ks', 'kw', 'kn', 'kz', 'an', 'ao', 'cf', 'ef', 'eo', 'cEl', 'cc', 'esrc', 'cE', 'ec', 'rs', 'li', 'vs', 'vr', 'vc', 'ly', 'cR', 'cL', 'cv', 'em', 'es', 'ey', 'bR', 'bB', 'bL', 'oL', 'oR', 'oE', 'az', 'el'];
+  var KEEP = [ 'crRShine', 'crRShI', 'crRShS', 'crRShD', 'crREx', 'crEx', 'crShine', 'crShI', 'crShS', 'crRT', 'crRh', 'crRm', 'crSm', 'crSh', 'crSg', 'crRCol', 'crRInk', 'crREs', 'crREy', 'crREdge', 'crShape', 'crCol', 'crInk', 'crEdge', 'crEs', 'crT', 'crTy', 'wl', 'wsw', 'wsi', 'wsb', 'dk', 'lc', 'lcl', 'lcr', 'lm', 'fls', 'flh',  'eb', 'eb2', 'sb', 'sv', 'cs', 'cy', 'we', 'bo', 'kq', 'ks', 'kw', 'kn', 'kz', 'an', 'ao', 'cf', 'ef', 'eo', 'cEl', 'cc', 'esrc', 'cE', 'ec', 'rs', 'li', 'vs', 'vr', 'vc', 'ly', 'cR', 'cL', 'cv', 'em', 'es', 'ey', 'bR', 'bB', 'bL', 'oL', 'oR', 'oE', 'az', 'el'];
   function apply(v) {
     KEEP.forEach(function (id) { if (v[id] == null || id[0] === '_') return; var i = $('#' + id); if (i.type === 'checkbox') { i.checked = !!v[id]; return; } i.value = v[id]; var o = i.nextElementSibling; if (o && o.tagName === 'OUTPUT') o.textContent = fmt(id, i.value); });
     if (v.az != null) { $('#azo').textContent = v.az + '°'; } if (v.el != null) { $('#elo').textContent = v.el + '°'; }
@@ -879,7 +950,7 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
   });
   $('#cE').addEventListener('input', rgbFromPicker);
   function current() { var v = {}; KEEP.forEach(function (id) { var e = $('#' + id); v[id] = e.type === 'checkbox' ? e.checked : e instanceof HTMLInputElement ? NATIVE.get.call(e) : e.value; }); return v; }
-  apply({"an": "1046", "ao": "0.4", "az": "323", "bB": "0", "bL": "0", "bR": "3.5", "bo": "1", "cE": "#0f1630", "cEl": "#eef0f6", "cL": "#feffff", "cR": "#000000", "cc": true, "cf": false, "cs": "0", "cv": "t-quarter", "cy": "0", "dk": "0.3", "eb": "131", "eb2": "100", "ec": "1.5", "ef": "swap", "el": "44", "em": "right", "eo": "1", "es": "169", "esrc": "refined", "ey": "-6.5", "flh": "16.5", "fls": "99", "kn": "30", "kq": "1.8", "ks": "black", "kw": "1.8", "kz": "1.11", "lc": "cyle", "lcl": "#ffcf15", "lcr": "#ff6500", "li": "0.2", "lm": "6", "ly": "-10", "oE": "0", "oL": "0", "oR": "1", "rs": "1", "sb": false, "sv": "0", "t_an": false, "t_ao": true, "t_bR": true, "t_eo": true, "t_fls": false, "t_li": true, "vc": ".35", "vr": "90", "vs": "0", "we": true});
+  apply({"an": "1046", "ao": "0.4", "az": "323", "bB": "0", "bL": "0", "bR": "3.5", "bo": "1", "cE": "#0f1630", "cEl": "#eef0f6", "cL": "#feffff", "cR": "#000000", "cc": true, "cf": false, "crCol": "#ff9000", "crEdge": "1.3", "crEs": "42", "crEx": "0", "crInk": "#000000", "crRCol": "#f7931e", "crREdge": "0", "crREs": "72", "crREx": "1.35", "crREy": "0.5", "crRInk": "#000000", "crRShD": "0.31", "crRShI": "0.65", "crRShS": "120", "crRShine": true, "crRT": true, "crRh": "2.1", "crRm": "3.4", "crSg": "41", "crSh": "25", "crShI": "0.33", "crShS": "56.5", "crShape": "panel", "crShine": true, "crSm": true, "crT": "8.5", "crTy": "4.7", "cs": "0", "cv": "t-quarter", "cy": "0", "dk": "0.3", "eb": "131", "eb2": "100", "ec": "1.5", "ef": "swap", "el": "44", "em": "right", "eo": "1", "es": "169", "esrc": "refined", "ey": "-6.5", "flh": "16.5", "fls": "99", "kn": "30", "kq": "1.8", "ks": "black", "kw": "1.8", "kz": "1.11", "lc": "cyle", "lcl": "#ffcf15", "lcr": "#ff6500", "li": "0.2", "lm": "6", "ly": "-10", "oE": "0", "oL": "0", "oR": "1", "rs": "1", "sb": false, "sv": "0", "t_an": false, "t_ao": true, "t_bR": true, "t_eo": true, "t_fls": false, "t_li": false, "vc": ".35", "vr": "90", "vs": "0", "we": true, "wl": "hollow", "wsb": "22", "wsi": "1", "wsw": "4.6"});
   if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
   var saveT;
   function save() {
@@ -991,16 +1062,44 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
     function paths(o, ink, oy) { return o.L.map(function (q) { return glyph(q.d, ink, q.x, oy == null ? dy : oy); }).join(''); }
     function shield(x, y, S) { return '<svg x="' + x + '" y="' + y + '" width="' + sw + '" height="' + sh + '" viewBox="-56 -12 112 146"><use href="' + S.href + '"' + (S.fill ? ' fill="' + S.fill + '"' : '') + '/></svg>'; }
     var COL = { href: '#t-quarter' };
+    // fire letters: one gradient across the whole name, left to right, dark orange to light yellow (the shield's
+    // dark/light split). A gradient can't span letters that are each placed by their own transform, so the letters
+    // are drawn in white as a mask over a gradient bar from the leftmost letter's edge to the rightmost's
+    // black, fire outline: the letters in black, the same gradient as an outline round them. The outline sits outside
+    // the letter (stroked at twice the width, the black drawn over its inner half), so its width never eats the black
+    // hollow: the outline alone, the ground showing through the letter (the letter cut out of the outline's mask)
+    var FIRE = 'fire', FIRES = 'fireS', FIREH = 'fireH', wi = function (i) { return i === FIRE || i === FIRES || i === FIREH ? '#fff' : i; };
+    function fx(m, x0, x1, ink, y0, y1) {
+      var mg = cap * .02; y0 -= mg; y1 += mg; x0 -= mg; x1 += mg;
+      if (ink !== FIRE && ink !== FIRES && ink !== FIREH) return m;
+      var u = 'wf' + (++window.wmUid), pre = '';
+      if (ink === FIRES || ink === FIREH) {
+        var solid = '<g class="wlS" data-cap="' + cap + '">' + m.replace(/fill="#fff"/g, 'fill="#f7931e"') + '</g>';
+        var sw = cap * +((document.getElementById('wsw') || {}).value || 3) / 100, si = (document.getElementById('wsi') || {}).value || 1;
+        pre = m.replace(/fill="#fff"/g, 'fill="#000"');
+        m = m.replace(/fill="#fff"/g, 'fill="none" stroke="#fff" stroke-opacity="' + si + '" stroke-width="' + 2 * sw + '" stroke-linejoin="round"');
+        x0 -= sw; x1 += sw; y0 -= sw; y1 += sw;
+        return '<g class="wlO">' + (ink === FIREH ? fx2(m + pre, x0, x1, u, y0, y1) : fx2(m, x0, x1, u, y0, y1) + pre) + '</g>' + solid;
+      }
+      return fx2(m, x0, x1, u, y0, y1);
+    }
+    // the mask's region held tight to the letters: a huge region is rasterised at a lower resolution, which is what
+    // stair-stepped the A's and Y's slanted edges at small sizes
+    function fx2(m, x0, x1, u, y0, y1) {
+      return '<defs><linearGradient id="' + u + 'g" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0"><stop offset="0" stop-color="#b83200"/><stop offset=".45" stop-color="#ff6500"/><stop offset="1" stop-color="#ffdb2f"/></linearGradient>' +
+        '<mask id="' + u + 'm" maskUnits="userSpaceOnUse" x="' + x0 + '" y="' + y0 + '" width="' + (x1 - x0) + '" height="' + (y1 - y0) + '">' + m + '</mask></defs>' +
+        '<rect x="' + x0 + '" y="' + y0 + '" width="' + (x1 - x0) + '" height="' + (y1 - y0) + '" fill="url(#' + u + 'g)" mask="url(#' + u + 'm)"/>';
+    }
     var k_pos, k = {};
     // centred: ASHEN, the shield, RAYNE
     k.centred = function (inkA, inkR, S) {
       var A = lay('ASHEN', 0, exA), sx = A.L[4].x + G.N[1] + sg, R = lay('RAYNE', 0, exR); R = lay('RAYNE', sx + sw + sg - (R.l - 0) + (R.l), exR);
-      return '<svg class="vw" viewBox="' + (A.l - gap) + ' ' + y0 + ' ' + (R.r - A.l + 2 * gap) + ' ' + (y1 - y0) + '">' + paths(A, inkA) + shield(sx, top, S || COL) + paths(R, inkR) + '</svg>';
+      return '<svg class="vw" viewBox="' + (A.l - gap) + ' ' + y0 + ' ' + (R.r - A.l + 2 * gap) + ' ' + (y1 - y0) + '">' + shield(sx, top, S || COL) + fx(paths(A, wi(inkA)) + paths(R, wi(inkR)), A.l, R.r, inkA, dy - cap, dy) + '</svg>';
     };
     // side: the shield, then ASHENRAYNE as one word
     k.side = function (inkA, inkR, S) {
       var AR = lay('ASHENRAYNE', sw + sg * 1.6, exAR), a = { L: AR.L.slice(0, 5) }, r = { L: AR.L.slice(5) };
-      return '<svg class="vw vs" viewBox="' + (inset - gap) + ' ' + y0 + ' ' + (AR.r - inset + 2 * gap) + ' ' + (y1 - y0) + '">' + shield(0, top, S || COL) + paths(a, inkA) + paths(r, inkR) + '</svg>';
+      return '<svg class="vw vs" viewBox="' + (inset - gap) + ' ' + y0 + ' ' + (AR.r - inset + 2 * gap) + ' ' + (y1 - y0) + '">' + shield(0, top, S || COL) + fx(paths(a, wi(inkA)) + paths(r, wi(inkR)), AR.l, AR.r, inkA, dy - cap, dy) + '</svg>';
     };
     // words stacked: the shield, then ASHEN over RAYNE (the same width, so they square up as a block); the two lines
     // together reach about 44% of the shield's height, centred a touch below where the single line sits (by eye: Y, less 3% of the shield)
@@ -1011,13 +1110,13 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
       var em = function (o, ink, by) { return o.L.map(function (q) { return glyph(q.d, ink, x + q.x, by); }).join(''); };
       return '<svg class="vw vt" viewBox="' + (insS - gap) + ' ' + (-gap) + ' ' + (x + w - insS + 2 * gap) + ' ' + (shS + 2 * gap) + '">' +
         '<svg x="0" y="0" width="' + swS + '" height="' + shS + '" viewBox="-56 -12 112 146"><use href="' + (S || COL).href + '"' + ((S || COL).fill ? ' fill="' + S.fill + '"' : '') + '/></svg>' +
-        em(A, inkA, b1) + em(R, inkR, b2) + '</svg>';
+        fx(em(A, wi(inkA), b1) + em(R, wi(inkR), b2), x + Math.min(A.l, R.l), x + w, inkA, b1 - cap, b2) + '</svg>';
     };
     // stacked: the shield over ASHENRAYNE, centred
     k.stacked = function (inkA, inkR, S) {
       var AR = lay('ASHENRAYNE', 0, exAR), w = AR.r - AR.l, W = Math.max(w, sw), by = sh + sg * 1.6 + cap;   // baseline under the shield
       var ox = (W - w) / 2 - AR.l, a = { L: AR.L.slice(0, 5).map(function (q) { return { d: q.d, x: q.x + ox }; }) }, r = { L: AR.L.slice(5).map(function (q) { return { d: q.d, x: q.x + ox }; }) };
-      return '<svg class="vw vk" viewBox="' + (-gap) + ' ' + (-gap) + ' ' + (W + 2 * gap) + ' ' + (by + 2 * gap) + '">' + shield((W - sw) / 2, 0, S || COL) + paths(a, inkA, by) + paths(r, inkR, by) + '</svg>';
+      return '<svg class="vw vk" viewBox="' + (-gap) + ' ' + (-gap) + ' ' + (W + 2 * gap) + ' ' + (by + 2 * gap) + '">' + shield((W - sw) / 2, 0, S || COL) + fx(paths(a, wi(inkA), by) + paths(r, wi(inkR), by), AR.l + ox, AR.r + ox, inkA, by - cap, by) + '</svg>';
     };
     // the monogram: A's ink runs right up to the centre line, R's stem starts on it. Colour: on its night and day panels.
     // One colour: the left panel in ink with the A cut out of it, the R in ink on the ground
@@ -1034,7 +1133,8 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
         '<rect x="' + (pad + aw) + '" y="' + (-cap - pad) + '" width="' + (rw + pad) + '" height="' + H + '" fill="none" stroke="' + ink + '" stroke-width="' + cap * .03 + '"/>' +
         glyph(m.A[0], ground, S0 - aR, 0) + glyph(m.R[0], ink, S0 - rL - nudge, 0) + '</svg>';
     };
-    k.monoAspect = MW / H; k.A = OR; k.R = NV; k.pos = k_pos(); k.glyph = glyph; k.G = G; k.cap = cap;
+    k.monoAspect = MW / H; var WL = (document.getElementById('wl') || {}).value || 'orig';
+    k.A = WL === 'fire' ? FIRE : WL === 'stroke' ? FIRES : WL === 'hollow' ? FIREH : WL === 'white' ? INK_D : OR; k.R = WL === 'fire' ? FIRE : WL === 'stroke' ? FIRES : WL === 'hollow' ? FIREH : WL === 'white' ? INK_D : NV; k.WL = WL; k.pos = k_pos(); k.glyph = glyph; k.G = G; k.cap = cap;
     // small: the bare shield (split fields and rim, no eagle) with A on its left half and R on its right, each in the
     // other half's colour, both touching the centre line. One colour: one half in ink with its letter cut out in the
     // ground, the other letter in ink on the ground (dark grounds take the reverse, and the flip mirrors it)
@@ -1068,10 +1168,123 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
     });
     if (window.renderSpacing) renderSpacing();
     if (window.renderBoards) renderBoards();
+    wlBreak(); renderCrest();
   };
+  // the crest: field, black edge, the eagle fitted between the words, ASHEN on top and RAYNE below, in the shield
+  // (or a tall panel of the same bounds). Drawn once big; the small sizes reuse it
+  window.renderCrest = function () {
+    var svg = document.getElementById('crestC'), m = (window.WORDMARKS || {}).Michroma; if (!svg || !m || !m.G) return;
+    var v = function (id) { return +document.getElementById(id).value; }, ink = document.getElementById('crInk').value;
+    var k = wmKit(m), pos = k.pos;
+    svg.innerHTML = '<use id="crMeasure" href="#shape" fill="none"/>';
+    var B = document.getElementById('crMeasure').getBBox(); if (!B.height) return;
+    // the tall panel: the reference badge's proportions (5 wide by 8 tall), corners rounded about 6% of its width
+    var panel = document.getElementById('crShape').value === 'panel';
+    if (panel) B = { x: -46.875, y: -13, width: 93.75, height: 150 };
+    var shp = panel ? '<rect x="' + B.x + '" y="' + B.y + '" width="' + B.width + '" height="' + B.height + '" rx="5.6"/>' : '<use href="#shape"/>';
+    // the letters: the set height, capped so the wider word fits inside the edge (86% of the width)
+    var wW = function (w, xs) { return xs[xs.length - 1] + m.G[w[w.length - 1]][3] - (xs[0] + m.G[w[0]][2]); };
+    var capH = Math.min(v('crT') / 100 * B.height, .86 * B.width * m.cap / Math.max(wW('ASHEN', pos.A), wW('RAYNE', pos.R))), sc = capH / m.cap, E = v('crEdge');
+    function word(w, xs, base) {
+      var L = m.G[w[0]], R = m.G[w[w.length - 1]], x0 = xs[0] + L[2], x1 = xs[xs.length - 1] + R[3], mid = (x0 + x1) / 2, out = '';
+      for (var i = 0; i < w.length; i++) out += k.glyph(m.G[w[i]][0], ink, xs[i] - mid, 0);
+      return '<g transform="translate(0 ' + base + ') scale(' + sc + ')">' + out + '</g>';
+    }
+    // mirrored spacing: the same margin inside the edge above ASHEN and below RAYNE, the same gap from each big word to
+    // its small one, and the eagle centred in what's left, so the space above it matches the space below
+    var mg = E + B.height * v('crTy') / 100, yA = B.y + mg + capH, yR = B.y + B.height - mg;
+    // the small words: WEBSITE under ASHEN, DEVELOPMENT over RAYNE, a share of the big letters' height, each spread to
+    // the big word's width with even space between letters (justified, like the name itself)
+    function spread(w, base, span) {
+      var c2 = v('crSh') / 100 * capH, s2 = c2 / m.cap, ink = 0, i, out = '';
+      for (i = 0; i < w.length; i++) ink += m.G[w[i]][3] - m.G[w[i]][2];
+      var gap = (span / s2 - ink) / (w.length - 1), x = -span / s2 / 2;
+      for (i = 0; i < w.length; i++) { var g = m.G[w[i]]; out += k.glyph(g[0], document.getElementById('crInk').value, x - g[2], 0); x += g[3] - g[2] + gap; }
+      return '<g transform="translate(0 ' + base + ') scale(' + s2 + ')">' + out + '</g>';
+    }
+    var smOn = document.getElementById('crSm').checked, c2 = v('crSh') / 100 * capH, sg = v('crSg') / 100 * capH;
+    var eTop = smOn ? yA + sg + c2 : yA, eBot = smOn ? yR - capH - sg - c2 : yR - capH;
+    var small = smOn ? spread('WEBSITE', yA + sg + c2, wW('ASHEN', pos.A) * sc) + spread('DEVELOPMENT', yR - capH - sg, wW('RAYNE', pos.R) * sc) : '';
+    // the shine: one soft streak of light corner to corner, from the upper right (the shield's one light), its
+    // brightest line through the middle of the band and fading to nothing at either side; over everything, edge too
+    function shine() {
+      if (!document.getElementById('crShine').checked) return '';
+      var I = v('crShI'), W = v('crShS') / 100 * B.width, cx = B.x + B.width / 2, cy = B.y + B.height / 2, L = Math.hypot(B.width, B.height) * 1.2, ang = Math.atan2(B.width, B.height) * 180 / Math.PI;   // along the diagonal, top right corner to bottom left
+      return '<defs><linearGradient id="crShG" gradientUnits="userSpaceOnUse" x1="' + (-W / 2) + '" y1="0" x2="' + (W / 2) + '" y2="0">' +
+        '<stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity="' + I + '"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>' +
+        '<rect x="' + (-W / 2) + '" y="' + (-L / 2) + '" width="' + W + '" height="' + L + '" fill="url(#crShG)" transform="translate(' + cx + ' ' + cy + ') rotate(' + ang + ')"/>';
+    }
+    svg.innerHTML = '<defs><clipPath id="crClip" clipPathUnits="userSpaceOnUse">' + shp + '</clipPath></defs>' +
+      '<g id="crestArt"><g clip-path="url(#crClip)">' + shp.replace('/>', ' fill="' + document.getElementById('crCol').value + '"/>') +
+      '<g id="crEagleFit"><use id="crEagle" href="#eagle" fill="' + ink + '"/></g>' +
+      word('ASHEN', pos.A, yA) + word('RAYNE', pos.R, yR) + small +
+      (E > 0 ? shp.replace('/>', ' fill="none" stroke="' + ink + '" stroke-width="' + 2 * E + '"/>') : '') + shine() + '</g></g>';
+    // the eagle fitted: its own bounds scaled to the set height, centred on the axis at the set centre
+    var eb = document.getElementById('crEagle').getBBox();
+    if (eb.height) {
+      var es = Math.min(v('crEs') / 100 * B.height / eb.height, .88 * B.width / eb.width, .92 * (eBot - eTop) / eb.height), cy = (eTop + eBot) / 2;
+      document.getElementById('crEagleFit').setAttribute('transform', 'translate(' + (v('crEx') - es * (eb.x + eb.width / 2)) + ' ' + (cy - es * (eb.y + eb.height / 2)) + ') scale(' + es + ')');
+    }
+    var sz = function (w, bg) { return '<div><svg viewBox="-60 -16 120 156" width="' + w + '" height="' + Math.round(w * 156 / 120) + '"><use href="#crestArt"/></svg><small>' + w + 'px</small></div>'; };
+    // the roundel: the circle, the eagle fitted to a share of its width (centred, nudged up or down), an optional edge
+    var rd = document.getElementById('roundC');
+    if (rd) {
+      var rc = document.getElementById('crRInk').value, RE = v('crREdge');
+      // the ring: WEBSITEDEVELOPMENT as one unbroken run round the whole circle, letters upright at the top and read
+      // clockwise, every gap the same (the run's end meets its start with the same gap), WEBSITE centred over the top
+      var ring = '', inner = 56 - RE, RT = document.getElementById('crRT').checked;
+      if (RT) {
+        var str = 'WEBSITEDEVELOPMENT', rm = v('crRm') / 100 * 56, ch = v('crRh') / 100 * 56;
+        // the fit button's target: the letter height that makes the run, at the font's own tracking between every
+        // letter, exactly one circumference at the baseline: 2π(inner − margin − h) = h/cap · (ink + n·track)
+        var inkU = 0; for (var q = 0; q < str.length; q++) inkU += m.G[str[q]][3] - m.G[str[q]][2];
+        window.RING_FIT = 100 / 56 * 2 * Math.PI * (inner - rm) / ((inkU + str.length * m.track) / m.cap + 2 * Math.PI);
+        var rs2 = ch / m.cap;
+        var rB = inner - rm - ch, rmid = rB, C = 2 * Math.PI * rmid, inkT = 0, j;
+        for (j = 0; j < str.length; j++) inkT += (m.G[str[j]][3] - m.G[str[j]][2]) * rs2;
+        var gp = Math.max(0, (C - inkT) / str.length), a = 0, cen = [];
+        for (j = 0; j < str.length; j++) { var wj = (m.G[str[j]][3] - m.G[str[j]][2]) * rs2; cen.push(a + wj / 2); a += wj + gp; }
+        var off = cen[3];   // the S of WEBSITE, its middle letter, at the top
+        for (j = 0; j < str.length; j++) {
+          var g = m.G[str[j]], deg = (cen[j] - off) / rmid * 180 / Math.PI;
+          ring += '<g transform="rotate(' + deg + ') translate(0 ' + (-rB) + ') scale(' + rs2 + ')">' + k.glyph(g[0], rc, -(g[2] + g[3]) / 2, 0) + '</g>';
+        }
+        inner = rB - rm;   // the eagle stays inside the ring, with the same margin
+      }
+      // the sphere: lit from the upper right (the shield's one light). A soft white highlight where the light hits,
+      // and the far side falling into shade, darkest at the lower left rim; over everything, so it reads as one ball
+      function sphere() {
+        if (!document.getElementById('crRShine').checked) return '';
+        var hx = 56 * .38, hy = -56 * .42, HS = v('crRShS') / 100 * 56, HI = v('crRShI'), SD = v('crRShD');
+        return '<defs><radialGradient id="rdHi" gradientUnits="userSpaceOnUse" cx="' + hx + '" cy="' + hy + '" r="' + HS + '">' +
+          '<stop offset="0" stop-color="#fff" stop-opacity="' + HI + '"/><stop offset=".35" stop-color="#fff" stop-opacity="' + (HI * .45) + '"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+          '<radialGradient id="rdSh" gradientUnits="userSpaceOnUse" cx="' + hx * .5 + '" cy="' + hy * .5 + '" r="' + 56 * 1.45 + '">' +
+          '<stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="' + (SD * .6) + '"/><stop offset="1" stop-color="#000" stop-opacity="' + SD + '"/></radialGradient></defs>' +
+          '<circle r="56" fill="url(#rdSh)"/><circle r="56" fill="url(#rdHi)"/>';
+      }
+      rd.innerHTML = '<g id="rdArt"><circle r="56" fill="' + document.getElementById('crRCol').value + '"/>' + ring + '<g id="rdFit"><use id="rdEagle" href="#eagle" fill="' + rc + '"/></g>' +
+        (RE > 0 ? '<circle r="' + (56 - RE / 2) + '" fill="none" stroke="' + rc + '" stroke-width="' + RE + '"/>' : '') + sphere() + '</g>';
+      var rb = document.getElementById('rdEagle').getBBox();
+      if (rb.width) { var rs = Math.min(v('crREs') / 100 * 112 / rb.width, 2 * inner * .97 / Math.hypot(rb.width, rb.height)); document.getElementById('rdFit').setAttribute('transform', 'translate(' + (v('crREx') - rs * (rb.x + rb.width / 2)) + ' ' + (v('crREy') - rs * (rb.y + rb.height / 2)) + ') scale(' + rs + ')'); }
+      var rz = function (w) { return '<div><svg viewBox="-60 -60 120 120" width="' + w + '" height="' + w + '"><use href="#rdArt"/></svg><small>' + w + 'px</small></div>'; };
+      document.getElementById('rdSizes').innerHTML = '<div class="g" style="background:#000">' + rz(160) + rz(80) + rz(40) + rz(24) + '</div><div class="g" style="background:#fff">' + rz(160) + rz(80) + rz(40) + rz(24) + '</div>';
+    }
+    document.getElementById('crSizes').innerHTML = '<div class="g" style="background:#000">' + sz(160) + sz(80) + sz(40) + sz(24) + '</div><div class="g" style="background:#fff">' + sz(160) + sz(80) + sz(40) + sz(24) + '</div>';
+  };
+  // the outline's breakpoint: where a wordmark's letters render shorter than the set height, the outline gives way to
+  // solid light orange (the A of the colour monogram); measured on screen, so every size and board follows
+  window.wlBreak = function () {
+    var lim = +((document.getElementById('wsb') || {}).value || 22);
+    [].forEach.call(document.querySelectorAll('g.wlS'), function (g) {
+      var svg = g.closest('svg'), vb = svg.viewBox.baseVal, h = svg.getBoundingClientRect().height;
+      if (!vb || !vb.height || !h) return;
+      svg.classList.toggle('wlSm', h * +g.dataset.cap / vb.height < lim);
+    });
+  };
+  addEventListener('resize', function () { clearTimeout(window.wlT); window.wlT = setTimeout(wlBreak, 120); });
   // the finalists' boards: every lockup on every ground, in colour and in one colour
   var GROUNDS = [
-    { n: 'Black', bg: '#000', dk: true, a: OR, get r() { return DK()[1]; } },
+    { n: 'Black', bg: '#000', dk: true, a: OR, r: NV },
     { n: 'White', bg: '#fff', dk: false, a: INK_L, r: INK_L },
     { n: 'Night blue', bg: '#0c1236', dk: true, a: OR, r: INK_D },
     { n: 'Day orange', bg: '#f7931e', dk: false, get a() { return DK()[0]; }, get r() { return DK()[0]; } },
@@ -1138,9 +1351,12 @@ window.FLEUR_BOX=[-7.287, -17.033, 7.287, -3.604];
   window.renderBoards = function () {
     var W = window.WORDMARKS || {}, wrap = document.getElementById('bbWrap'), m = W.Michroma; if (!wrap || !m || !m.G) return;
     m._name = 'Michroma'; var k = wmKit(m), out = '';
+    // the lockups large, on black, in colour: a side-scrolling strip above the boards
+    out += '<div class="bbbig"><span class="bbl">Black<br><small>colour, large</small></span>' +
+      '<div class="c">' + k.centred(k.A, k.R) + '</div><div class="c">' + k.side(k.A, k.R) + '</div><div class="c">' + k.wordsStacked(k.A, k.R) + '</div><div class="c">' + k.stacked(k.A, k.R) + '</div></div>';
     GROUNDS.forEach(function (g0) {
       var ink = g0.dk ? INK_D : INK_L, mono = { href: g0.dk ? '#t-monoR' : '#t-mono', fill: ink };
-      var sw2 = function (c) { return c === OR ? k.A : c === NV ? k.R : c; }, g = { n: g0.n, bg: g0.bg, dk: g0.dk, a: sw2(g0.a), r: sw2(g0.r) }, lab = g.dk ? '#9a9dab' : '#3a3b42';
+      var sw2 = function (c) { return c === OR ? k.A : c === NV ? k.R : c; }, g = { n: g0.n, bg: g0.bg, dk: g0.dk, a: g0.dk && k.WL !== 'orig' ? k.A : sw2(g0.a), r: g0.dk && k.WL !== 'orig' ? k.R : sw2(g0.r) }, lab = g.dk ? '#9a9dab' : '#3a3b42';
       var small = function (S) {
         var o = !!S.fill;
         return '<div class="sm"><svg width="64" height="83" viewBox="-56 -12 112 146"><use href="' + S.href + '"' + (o ? ' fill="' + S.fill + '"' : '') + '/></svg>' +
