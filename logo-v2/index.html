@@ -324,12 +324,14 @@ function mark(v, o = {}){
   return (defs.length ? '<defs>' + defs.join('') + '</defs>' : '') + body;
 }
 
-const VB = {mark: '-226 -5 452 573', h: '-226 -5 2003 573', v: '-380 -5 760 760', word: '248 126 1528 239'};
+const VB = {mark: '-226 -5 452 573', h: '-226 -5 2023 573', v: '-380 -5 760 760', word: '248 126 1528 239'};
 const WORD = '<use href="#g-ashen" fill="currentColor"/><use href="#g-rayne" fill="currentColor"/>';
 function inner(kind, v, o){
   if (kind === 'mark') return mark(v, o);
   if (kind === 'word') return WORD;
-  if (kind === 'h') return mark(v, o) + WORD;
+  /* horizontal: the gap from the shield's edge to the A equals the gap between the two words (n to R, 52.5).
+     The shield's edge is the rim at 220.5, or the dark shield at 215.4 when the rim is off; the A starts at 253.2. */
+  if (kind === 'h') return mark(v, o) + `<g transform="translate(${o.rim === false ? 14.7 : 19.8},0)">${WORD}</g>`;
   return mark(v, o) + `<g transform="translate(0,612) scale(.46) translate(-1012.2,-131.7)">${WORD}</g>`;
 }
 const svg = (kind, v, o = {}, attrs = '') =>
