@@ -26,10 +26,6 @@ const DEEP = [[210, 58, 18], [224, 72, 26], [52, 128, 190], [62, 150, 78], [222,
 const FALL = [1, -1.6, 3.2, 0.4, -0.7];   // ash sinks, rides the heat, is beaten down by rain, then lifts at dawn
 
 export async function sparks(cfg) {
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.getElementById('gl');
   let renderer;
@@ -302,20 +298,36 @@ export async function sparks(cfg) {
   const start = performance.now();
   let stage = stageTarget(), last = start, fall = 0, shown = -1, chapter = -1;
 
+  // Reduced motion: nothing moves. Each chapter is a still image, and chapters cross-fade.
+  let still = Math.round(stage), fading = false, drawn = '';
+  function stillStage() {
+    const want = Math.round(stageTarget());
+    if (want !== still && !fading) {
+      fading = true;
+      canvas.style.opacity = 0;
+      setTimeout(() => { still = want; canvas.style.opacity = 1; fading = false; }, 360);
+    }
+    return still;
+  }
+
   function frame(now) {
     const time = (now - start) / 1000;
     const dt = Math.min((now - last) / 1000, 0.1);
     last = now;
-    stage += (stageTarget() - stage) * 0.07;
+    if (reduced) {
+      stage = stillStage();
+      const key = stage + '|' + env.w + '|' + env.h;
+      if (key === drawn) { requestAnimationFrame(frame); return; }   // nothing changed, so nothing to redraw
+      drawn = key;
+    } else stage += (stageTarget() - stage) * 0.07;
     const s = Math.min(Math.max(stage, 0), 4);
-    const speed = reduced ? 0.25 : 1;
-    fall += dt * lerp1(FALL, s) * speed;
+    if (!reduced) fall += dt * lerp1(FALL, s);
 
-    uniforms.uTime.value = time * speed;
+    uniforms.uTime.value = reduced ? 8 : time;
     uniforms.uT0.value = reduced ? 8 : time;   // seconds since load, for opening sequences; skipped past when motion is reduced
     uniforms.uFall.value = fall;
     uniforms.uStage.value = s;
-    uniforms.uIntro.value = smooth(0.2, 2.6, time);
+    uniforms.uIntro.value = reduced ? 1 : smooth(0.2, 2.6, time);
     const d = cfg.drive(s);
     uniforms.uGrow.value = d.grow || 0;
     uniforms.uSun.value = d.sun || 0;

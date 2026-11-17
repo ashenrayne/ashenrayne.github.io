@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body class="alt">
@@ -29,11 +30,11 @@
 </header>
 
 <div class="rail" aria-hidden="true">
-  <a href="#top">Phoenix<i></i></a>
-  <a href="#studio">Fire<i></i></a>
-  <a href="#services">Storm<i></i></a>
-  <a href="#why">Seed<i></i></a>
-  <a href="#contact">Bloom<i></i></a>
+  <a href="#top" tabindex="-1">Phoenix<i></i></a>
+  <a href="#studio" tabindex="-1">Fire<i></i></a>
+  <a href="#services" tabindex="-1">Storm<i></i></a>
+  <a href="#why" tabindex="-1">Seed<i></i></a>
+  <a href="#contact" tabindex="-1">Bloom<i></i></a>
 </div>
 
 <main id="top">
@@ -123,6 +124,16 @@
   <span>Independent web development studio</span>
 </footer>
 
+<script>
+// Reveal copy as it scrolls into view. Kept apart from the 3D scene so the page still reads if that fails to load.
+(function () {
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.15 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
 </script>
