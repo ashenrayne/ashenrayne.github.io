@@ -4,9 +4,11 @@ import { sparks, smooth, lerp1, picker } from './sparks.js';
 
 // Small screens stack each section's copy below its illustration. Each illustration is centred in the gap between
 // the header and that copy (it may tuck under the header a little), scaled to fit from how far each shape reaches
-// below and above its centre (in units of its scale), and capped so it never runs wider than the screen.
-const REACH = [[-0.85, 0.85], [-1.38, 1.22], [-0.95, 0.85], [-1.38, 2.02], [-1.0, 0.5]];
-const WIDE = [0.52, 0.42, 0.55, 0.62, 0.6];
+// below and above its centre (in units of its scale), and capped so it spans about nine tenths of the screen's width
+// (WIDE is 0.9 over each shape's half-width) where the screen is tall enough for that.
+const REACH = [[-0.85, 0.85], [-1.22, 1.1], [-0.95, 0.85], [-1.38, 2.02], [-1.0, 0.5]];
+const ICE_REACH = [-1.38, 1.22];   // the ice take, in the glass's place
+const WIDE = [0.84, 1.06, 0.98, 0.62, 0.6];   // the tree and the sun as they were; (site.css sizes each section's --band from these and REACH: keep them in step)
 const bands = { w: 0, h: 0, list: [] };
 if (document.fonts) document.fonts.ready.then(() => { bands.list = []; });   // the copy moves once its fonts arrive
 function mobileBands(aspect) {
@@ -18,8 +20,8 @@ function mobileBands(aspect) {
     let top = 0;
     for (let el = col; el && el !== sec; el = el.offsetParent) top += el.offsetTop;   // offsets ignore the reveal's slide-in
     const yTop = 1 - 2 * from / vh, yBot = 1 - 2 * Math.min(top - 14, vh) / vh;
-    const [lo, hi] = REACH[i] || REACH[0];
-    const sc = Math.max(0.05, Math.min((yTop - yBot) / (hi - lo), aspect * (WIDE[i] || 0.5), 0.5));
+    const [lo, hi] = i === 1 && !GLASS_ON ? ICE_REACH : REACH[i] || REACH[0];
+    const sc = Math.max(0.05, Math.min((yTop - yBot) / (hi - lo), aspect * (WIDE[i] || 0.5), 1.2));
     return { sc, cy: (yTop + yBot) / 2 - (hi + lo) / 2 * sc };
   });
   Object.assign(bands, { w: innerWidth, h: innerHeight });

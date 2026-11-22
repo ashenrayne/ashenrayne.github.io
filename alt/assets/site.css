@@ -155,7 +155,20 @@ footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 12
 @media (max-width: 860px) {
   .col { max-width: none; }
   /* every section like the hero: the illustration up top, the copy below it */
-  main > section { align-items: flex-end; padding-top: 40svh; padding-bottom: 40px; }
+  /* The copy starts low enough that the illustration above it gets its full width: on phones each one's scale is capped
+     at aspect × WIDE (bloom.js), which needs a band of 100vw × WIDE × (its reach, hi − lo) / 2 between the header and the
+     copy, so --band is that in vw. 82px is the header, less the 16px the illustration may tuck under it, plus the 14px gap
+     above the copy. On a short screen the band stops where the eyebrow still shows at the foot of the first screen, and
+     the illustration fits what's left. A section whose copy then runs past the screen just scrolls on; snap.js gives it
+     a stop a screen at a time. */
+  main > section, main > .hero { --band: .714; align-items: flex-end; padding-top: max(40svh, min(calc(82px + var(--band) * 100vw), calc(100svh - 64px))); padding-bottom: 40px; }
+  #studio { --band: 1.23; }
+  #services { --band: .882; }
+  #why { --band: 1.054; }
+  #contact { --band: .45; }
+  /* one type scale on phones: the hero heading and the contact heading match the rest (the eyebrows and ledes already do) */
+  h1, .contact h2 { font-size: clamp(38px, 4.6vw, 70px); line-height: 1; letter-spacing: -.015em; margin: 18px 0 30px; }
+  h1 br { display: none; }   /* "Built to rise." on one line */
   .col { text-shadow: 0 1px 22px rgba(8, 6, 6, .95), 0 0 6px rgba(8, 6, 6, .6); }
   .btn, .pair { text-shadow: none; }
   .rail { display: none; }

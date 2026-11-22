@@ -317,7 +317,8 @@ export async function sparks(cfg) {
   // Where the reader is in the story: 0 at the hero, 4 at the contact section
   function stageTarget() {
     const vh = innerHeight, probe = scrollY + vh / 2;
-    const c = sections.map((el) => el.offsetTop + el.offsetHeight / 2);
+    // each chapter settles on its section's first screen (a section taller than the screen keeps its picture while it's read on down)
+    const c = sections.map((el) => el.offsetTop + Math.min(el.offsetHeight, vh) / 2);
     c[0] = vh / 2;
     c[4] = Math.min(c[4], root.scrollHeight - vh / 2);
     if (probe <= c[0]) return 0;
