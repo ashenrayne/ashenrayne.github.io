@@ -13,10 +13,15 @@ const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 let stops = [], moving = false, locked = false, quiet = 0;
 const away = () => root.classList.contains('glass-focus');   // the shield is up close: the page holds still
 
-// where the page can come to rest: each section's top, a screen at a time down any taller than the screen
-// (each step overlapping the last a little, so you keep your place), its foot, and the very bottom
+// where the page can come to rest: each section's top, then on down any taller than the screen, and its foot, and the
+// very bottom. The header sits over the top of the screen, so a step down a section brings the first block that was
+// cut off at the bottom (a card, a paragraph, a heading) up to just below the header, and nothing is read under it.
+// A block taller than the screen is stepped through at a screen less the header, overlapping a little.
+const BLOCKS = '.pair > div, .service, .label, h1, h2, h3, p, ul, .actions, .mail';
 function measure() {
   const vh = innerHeight, max = root.scrollHeight - vh, at = [];
+  const header = document.querySelector('header'), hdr = (header ? header.offsetHeight : 0) + 14;
+  const view = vh - hdr;   // what the header leaves of the screen
   for (const el of sections) {
     // the foot is where the content ends (plus a little air), not the section's padding: a section whose content
     // fits on screen gets no extra stops, however much padding hangs below it
@@ -24,11 +29,24 @@ function measure() {
     const end = inner.getBoundingClientRect().bottom + scrollY + 12;
     const foot = Math.min(top + el.offsetHeight, end) - vh;
     at.push(top);
-    for (let y = top + vh * 0.85; y < foot - vh * 0.15; y += vh * 0.85) at.push(y);
+    const blocks = [...el.querySelectorAll(BLOCKS)].map((b) => {
+      const r = b.getBoundingClientRect();
+      return { top: r.top + scrollY, bottom: r.bottom + scrollY };
+    });
+    for (let y = top, guard = 0; y + vh < end && guard < 40; guard++) {
+      // the first block running off the foot of the screen that starts below the header and fits in what's left
+      // (a card too tall to fit is passed over for the blocks inside it)
+      const cut = blocks.find((b) => b.bottom > y + vh - 2 && b.top - hdr > y + 40 && b.bottom - b.top <= view);
+      const next = cut ? cut.top - hdr : y + view - 40;
+      if (next >= foot - 20) break;
+      at.push(next);
+      y = next;
+    }
     if (foot > top + 4) at.push(foot);
   }
   at.push(max);
   stops = [...new Set(at.map((v) => Math.round(Math.min(Math.max(v, 0), max))))].sort((a, b) => a - b);
+  stops = stops.filter((v, i) => i === stops.length - 1 || stops[i + 1] - v > 60);   // a stop a hair above the next is a wasted swipe
 }
 
 const nearest = () => stops.reduce((best, v, i) => (Math.abs(v - scrollY) < Math.abs(stops[best] - scrollY) ? i : best), 0);
