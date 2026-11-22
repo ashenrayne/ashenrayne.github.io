@@ -218,3 +218,28 @@ footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 12
   body.pano .contact .col { max-width: 900px; }
   body.pano .contact h2 { font-size: clamp(44px, 5.4vw, 88px); margin-bottom: 22px; }
 }
+
+/* ---------- The shield up close (see focus in bloom.js) ---------- */
+/* the page steps aside while the shield fills the screen; the overlay takes the pointer and holds the close button */
+header, main, .rail, footer { transition: opacity .5s; }
+.glass-focus header, .glass-focus main, .glass-focus .rail, .glass-focus footer { opacity: 0; pointer-events: none; }
+.glass-focus, .glass-focus body { overflow: hidden; }
+.glass-ui { position: fixed; inset: 0; z-index: 20; touch-action: none; cursor: none; opacity: 0; visibility: hidden; transition: opacity .4s, visibility 0s .4s; }
+.glass-focus .glass-ui { opacity: 1; visibility: visible; transition: opacity .5s .35s; }
+.glass-close {
+  position: absolute; top: 22px; right: var(--gutter); width: 48px; height: 48px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--line); background: rgba(10, 8, 8, .55); color: var(--ink); cursor: pointer; transition: color .3s, border-color .3s;
+}
+.glass-close:focus { outline: none; }
+.glass-close:hover, .glass-close:focus-visible { color: var(--ember); border-color: currentColor; }
+.glass-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.glass-hint { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; pointer-events: none; font-size: 12px; transition: opacity .8s; }
+.glass-ui.moved .glass-hint { opacity: 0; }
+.glass-hint .coarse { display: none; }
+@media (pointer: coarse) { .glass-hint .fine { display: none; } .glass-hint .coarse { display: inline; } }
+/* for the keyboard: out of sight until it's tabbed to (a click or tap on the shield is the usual way in) */
+.glass-open { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.glass-open:focus-visible {
+  position: static; width: auto; height: auto; clip-path: none; margin-top: 28px; padding: 12px 20px 10px;
+  font-size: 14px; letter-spacing: .28em; color: var(--ink); background: none; border: 1px solid var(--line); border-radius: 999px; cursor: pointer;
+}

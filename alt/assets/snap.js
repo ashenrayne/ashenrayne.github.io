@@ -11,6 +11,7 @@ const DURATION = 1100;
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 let stops = [], moving = false, locked = false, quiet = 0;
+const away = () => root.classList.contains('glass-focus');   // the shield is up close: the page holds still
 
 // where the page can come to rest: each section's top, a screen at a time down any taller than the screen
 // (each step overlapping the last a little, so you keep your place), its foot, and the very bottom
@@ -65,13 +66,14 @@ const step = (dir) => { measure(); go(next(dir)); };
 addEventListener('wheel', (e) => {
   if (e.ctrlKey) return;            // ctrl + wheel is the browser's zoom
   e.preventDefault();
+  if (away()) return;
   if (locked) { settle(); return; }          // still moving or settling: this event only extends the wait
   if (Math.abs(e.deltaY) < 4) return;
   step(Math.sign(e.deltaY));
 }, { passive: false });
 
 addEventListener('keydown', (e) => {
-  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  if (e.altKey || e.ctrlKey || e.metaKey || away()) return;
   if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
   const dir = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1, ' ': e.shiftKey ? -1 : 1 }[e.key];
   if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); measure(); if (!moving) go(e.key === 'Home' ? 0 : stops.length - 1); return; }
@@ -101,7 +103,7 @@ addEventListener('touchstart', (e) => {
 }, { passive: true });
 addEventListener('touchmove', (e) => { if (touchY !== null && e.touches.length === 1) e.preventDefault(); }, { passive: false });
 addEventListener('touchend', (e) => {
-  if (touchY === null) return;
+  if (touchY === null || away()) { touchY = null; return; }
   const t = e.changedTouches[0], dy = touchY - t.clientY, dx = touchX - t.clientX;
   touchY = null;
   if (Math.abs(dy) < 40 || Math.abs(dy) < Math.abs(dx)) return;

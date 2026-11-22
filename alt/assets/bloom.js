@@ -484,13 +484,127 @@ if (!GLASS_ON) {
   const rail = document.querySelector('.rail a[href="#studio"]');
   if (rail) rail.title = 'Ice';
 }
+// Up close: a click or tap on the shield brings it forward to fill the screen, the page steps aside, and the flashlight
+// is the visitor's: it follows the mouse, or on a touch screen it's held a little above the finger so the finger
+// doesn't hide what it lights. A click or tap (not a drag), the close button or Esc put it back. The light starts from
+// wherever it had wandered to, so nothing jumps.
+const focus = (() => {
+  const LIFT = 90;   // px the light is held above a finger
+  const st = { want: 0, e: 0, aim: [0, 0], to: [0, 0], on: 0, t: 0, s: 0, base: null, cur: null };
+  const aimU = { value: null }, onU = { value: 0 };
+  const wander = (t) => [0.42 * Math.sin(t * 0.21) + 0.18 * Math.sin(t * 0.57 + 1), 0.45 * Math.sin(t * 0.16 + 2) + 0.18 * Math.cos(t * 0.43)];
+  // a point on the screen, in window units for a given layout (the inverse of GLASS_C + u * GLASS_R, in uScale units from uCenter)
+  const toU = (x, y, L) => {
+    const a = innerWidth / innerHeight, px = (x / innerWidth * 2 - 1) * a, py = 1 - y / innerHeight * 2;
+    return [(px - L.cx) / L.sc / 1.12, ((py - L.cy) / L.sc + 0.05) / 1.12];
+  };
+  // on the shield: inside its outline, near enough (square shoulders, tapering to the point at the foot)
+  const onShield = (x, y) => {
+    if (!st.base || Math.abs(st.s - 1) > 0.15) return false;
+    const [ux, uy] = toU(x, y, st.base);
+    const w = 0.8 * (uy < -0.25 ? Math.max(0, 1 - (-0.25 - uy) / 0.8) : 1);
+    return Math.abs(uy) < 0.98 && Math.abs(ux) < w;
+  };
+  const clampU = ([x, y]) => [Math.max(-1.1, Math.min(1.1, x)), Math.max(-1.1, Math.min(1.1, y))];
+
+  let ui, opener, back = null;
+  function open(e) {
+    if (st.want) return;
+    st.want = 1;
+    st.to = wander(st.t); st.aim = [...st.to]; st.on = 1;   // take the light from where it is
+    back = document.activeElement;
+    document.documentElement.classList.add('glass-focus');
+    ui.classList.remove('moved');
+    ui.querySelector('.glass-close').focus({ preventScroll: true });
+  }
+  function close() {
+    if (!st.want) return;
+    st.want = 0;
+    document.documentElement.classList.remove('glass-focus');
+    if (back && back !== document.body) back.focus({ preventScroll: true });   // back to the button, if that's how they came in
+    else document.activeElement.blur();
+  }
+  function point(e) {
+    if (!st.cur || e.target.closest('.glass-close')) return;
+    const touch = e.pointerType !== 'mouse';
+    if (touch && !(e.buttons & 1) && e.type !== 'pointerdown') return;   // a finger moves the light only while it's down
+    st.to = clampU(toU(e.clientX, e.clientY - (touch ? LIFT : 0), st.cur));
+    ui.classList.add('moved');
+  }
+
+  if (GLASS_ON) {
+    const sec = document.getElementById('studio');
+    ui = document.createElement('div');
+    ui.className = 'glass-ui';
+    ui.innerHTML = '<button class="glass-close" type="button" aria-label="Close the window"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'
+      + '<p class="glass-hint label"><span class="fine">Move to shine the light · click to close</span><span class="coarse">Drag to shine the light · tap to close</span></p>';
+    document.body.append(ui);
+    opener = document.createElement('button');
+    opener.className = 'glass-open label';
+    opener.type = 'button';
+    opener.textContent = 'Hold the light';
+    sec.querySelector('.col').append(opener);
+    opener.addEventListener('click', open);
+    ui.querySelector('.glass-close').addEventListener('click', close);
+    const words = (t) => t.closest && t.closest('.col > *');   // the copy stays the copy
+    sec.addEventListener('click', (e) => { if (!words(e.target) && onShield(e.clientX, e.clientY)) open(e); });
+    sec.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'mouse') sec.style.cursor = !words(e.target) && onShield(e.clientX, e.clientY) ? 'pointer' : '';
+    });
+    // a press that barely moves is a click or tap, and closes it; one that travels is a drag, and only moves the light
+    let down = null;
+    ui.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.glass-close')) return;
+      down = { x: e.clientX, y: e.clientY, far: false };
+      try { ui.setPointerCapture(e.pointerId); } catch (_) {}
+      if (e.pointerType !== 'mouse') point(e);
+    });
+    ui.addEventListener('pointermove', (e) => {
+      if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 10) down.far = true;
+      point(e);
+    });
+    ui.addEventListener('pointerup', (e) => { const tap = down && !down.far; down = null; if (tap && !e.target.closest('.glass-close')) close(); });
+    ui.addEventListener('pointercancel', () => { down = null; });
+    addEventListener('keydown', (e) => {
+      if (!st.want) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];   // arrows move it too
+      if (d) { e.preventDefault(); st.to = clampU([st.to[0] + d[0] * 0.08, st.to[1] + d[1] * 0.08]); ui.classList.add('moved'); }
+    });
+  }
+
+  return {
+    get t() { return st.t; }, set t(v) { st.t = v; },
+    uniforms(THREE) { aimU.value = new THREE.Vector2(); return { uAim: aimU, uAimOn: onU }; },
+    key: () => (st.want ? 'f' + st.to.join(',') : ''),
+    // each frame: the page's own layout, eased toward the shield centred and filling the screen while it's up close
+    layout(s, aspect, L) {
+      st.s = s; st.base = L;
+      const k = stillMotion ? 1 : 0.09;
+      st.e += (st.want - st.e) * k;
+      if (st.e < 0.001 && !st.want) st.e = 0;
+      st.aim = st.aim.map((v, i) => v + (st.to[i] - v) * (stillMotion ? 1 : 0.3));
+      st.on += (st.want - st.on) * (stillMotion ? 1 : 0.05);
+      if (aimU.value) { aimU.value.set(st.aim[0], st.aim[1]); onU.value = st.on; }
+      if (!st.e) { st.cur = L; return L; }
+      const sc = Math.min(0.9 / 1.12, aspect * 0.94 / (0.81 * 1.12)), e = smooth(0, 1, st.e);
+      st.cur = { ...L, cx: L.cx + (0 - L.cx) * e, cy: L.cy + (0.05 * sc - L.cy) * e, sc: L.sc + (sc - L.sc) * e };
+      return st.cur;
+    },
+  };
+})();
+
 const GLASS = /* glsl */`
     const vec2 GLASS_C = vec2(0.0, -0.05);
     const float GLASS_R = 1.12;   // half the window's height
+    uniform vec2 uAim;      // where the visitor holds the light, up close (see glassFocus)
+    uniform float uAimOn;   // 0 the light wanders on its own, 1 it's theirs
     // where the flashlight points, in window units (0 the centre, 1 the top), wandering as someone looks about
+    // (the same path as wander() in glassFocus)
     vec2 beamAt() {
       float t = uTime;
-      return vec2(0.42 * sin(t * 0.21) + 0.18 * sin(t * 0.57 + 1.0), 0.45 * sin(t * 0.16 + 2.0) + 0.18 * cos(t * 0.43));
+      vec2 w = vec2(0.42 * sin(t * 0.21) + 0.18 * sin(t * 0.57 + 1.0), 0.45 * sin(t * 0.16 + 2.0) + 0.18 * cos(t * 0.43));
+      return mix(w, uAim, uAimOn);
     }
     // how strongly it shines at u: switched on as we arrive, with a stutter, then steady
     float beam(vec2 u) {
@@ -1195,7 +1309,7 @@ export const bloom = (hero = {}) => sparks({
     }`,
 
   backdropHead: ICE + (GLASS_ON ? GLASS + GLASS_BACK : ICE_BACK) + PLANET + FISH_BOLT,
-  uniforms: (THREE) => (GLASS_ON ? (({ glass, relief }) => ({ uGlass: { value: glass }, uRelief: { value: relief }, uFreeze: iceFreeze, uTreeT: treeT, uYear: treeYear }))(shieldGlass(THREE)) : { uIcon: { value: crystalIcon(THREE) }, uFreeze: iceFreeze, uTreeT: treeT, uYear: treeYear }),
+  uniforms: (THREE) => (GLASS_ON ? (({ glass, relief }) => ({ uGlass: { value: glass }, uRelief: { value: relief }, uFreeze: iceFreeze, uTreeT: treeT, uYear: treeYear, ...focus.uniforms(THREE) }))(shieldGlass(THREE)) : { uIcon: { value: crystalIcon(THREE) }, uFreeze: iceFreeze, uTreeT: treeT, uYear: treeYear }),
 
   backdrop: /* glsl */`
     // A few planets in each later chapter's sky, in its own light, on the side away from its copy
@@ -1217,22 +1331,23 @@ export const bloom = (hero = {}) => sparks({
     col += vec3(0.3, 0.38, 0.55) * fl * exp(-dot(cq, cq) * 2.2) * max(0.0, 1.0 - abs(uStage - 2.0) * 2.0);` + (hero.backdrop || ''),
 
   // the tree grows on arrival (see growTree); the meadow follows the scroll. The hand-over happens while the sparks are scattered
-  drive: (s, t) => (freezeIce(s), growTree(s), { grow: s < 3.5 ? 1 : 0.35 + 0.7 * smooth(3.5, 4, s), sun: smooth(3.5, 4, s), x: strikeFish(s, t), ...addWind(winterWind(t), stormWind(s, t)) }),
+  drive: (s, t) => (focus.t = t, freezeIce(s), growTree(s), { grow: s < 3.5 ? 1 : 0.35 + 0.7 * smooth(3.5, 4, s), sun: smooth(3.5, 4, s), x: strikeFish(s, t), ...addWind(winterWind(t), stormWind(s, t)) }),
 
   layout(s, { aspect, wide }) {
     if (wide) {
       const big = Math.min(0.66, aspect * 0.4), sc = big * lerp1([hero.sc ?? 0.78, 1, 1, 0.76, 1], s);
       const cy0 = typeof hero.cy === 'function' ? hero.cy(big * (hero.sc ?? 0.78)) : hero.cy ?? 0.08;
       const cy = lerp1([cy0, 0.06, 0.06, -0.26 * big * 0.76, 0.06], s);   // the tree: crown top to fading root tips, on screen
-      return {
+      return focus.layout(s, aspect, {
         cx: aspect * 0.44 * lerp1([hero.cx ?? 1, -1, 1, -1, 1], s),
         cy, sc,
         gy: cy - 0.9 * sc - 0.17 * smooth(3.5, 4, s),   // the meadow sits a little lower, clear of the contact copy
         dim: 1,
-      };
+      });
     }
     // small screens: each chapter's illustration centred in the gap between the header and its copy
     const b = mobileBands(aspect);
-    return { cx: 0, cy: lerp1(b.map((v) => v.cy), s), sc: lerp1(b.map((v) => v.sc), s), dim: 1 };
+    return focus.layout(s, aspect, { cx: 0, cy: lerp1(b.map((v) => v.cy), s), sc: lerp1(b.map((v) => v.sc), s), dim: 1 });
   },
+  redraw: () => focus.key(),   // with reduced motion, the still frame is redrawn when the light is moved
 });

@@ -360,7 +360,7 @@ export async function sparks(cfg) {
     last = now;
     if (reduced) {
       stage = stillStage();
-      const key = stage + '|' + env.w + '|' + env.h;
+      const key = stage + '|' + env.w + '|' + env.h + '|' + (cfg.redraw ? cfg.redraw() : '');
       if (key === drawn) { requestAnimationFrame(frame); return; }   // nothing changed, so nothing to redraw
       drawn = key;
     } else stage += (stageTarget() - stage) * 0.07;
