@@ -166,9 +166,22 @@ footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 12
   #services { --band: .882; }
   #why { --band: 1.054; }
   #contact { --band: .45; }
-  /* one type scale on phones: the hero heading and the contact heading match the rest (the eyebrows and ledes already do) */
-  h1, .contact h2 { font-size: clamp(38px, 4.6vw, 70px); line-height: 1; letter-spacing: -.015em; margin: 18px 0 30px; }
+  /* Phones take the desktop's type and spacing at three quarters (its 24px body is 18px here), so the copy keeps the
+     same proportions on both; the hero and contact headings are the section heading's size here, not larger. */
+  .label.kicker { font-size: 13px; }
+  h2, h1, .contact h2 { font-size: 50px; line-height: 1; letter-spacing: -.015em; margin: 14px 0 0; }
+  h1, .contact h2 { margin-bottom: 22px; }
   h1 br { display: none; }   /* "Built to rise." on one line */
+  .lede, .prose p:first-child { font-size: 24px; }
+  .prose { margin-top: 22px; }
+  .actions { margin-top: 30px; }
+  .services, .pair { margin-top: 42px; }
+  .service { padding: 22px 0; }
+  .service h3 { font-size: 25px; }
+  .pair > div { padding: 30px; }
+  .pair h3 { font-size: 37px; margin-bottom: 10px; }
+  .mail { font-size: 35px; }
+  #contact .lede + p { margin-top: 27px !important; }   /* (its desktop gap is set inline) */
   .col { text-shadow: 0 1px 22px rgba(8, 6, 6, .95), 0 0 6px rgba(8, 6, 6, .6); }
   .btn, .pair { text-shadow: none; }
   .rail { display: none; }
